@@ -153,17 +153,17 @@ a:hover .gm-card-title {
 }
 
 /* ==========================================================================
-   1. HERO SPLIT SECTION
+   1. HERO SPLIT SECTION (Full Width Flush Left Corkboard + Portrait Card)
    ========================================================================== */
 .gm-hero-section {
     width: 100%;
-    max-width: 1536px;
-    margin: 0 auto 70px;
-    padding: 0 24px;
+    margin: 0 0 90px 0;
+    padding: 0;
     box-sizing: border-box;
     display: flex;
-    gap: 32px;
-    align-items: flex-start;
+    align-items: stretch;
+    position: relative;
+    background: #FAF9F6;
 }
 
 .gm-hero-main {
@@ -171,12 +171,13 @@ a:hover .gm-card-title {
     position: relative;
     text-decoration: none;
     display: block;
+    min-width: 0;
 }
 
 .gm-hero-image-wrap {
     width: 100%;
-    height: 430px;
-    background: var(--gm-color-bg-light);
+    height: 440px;
+    background: #EFEFEF;
     overflow: hidden;
     position: relative;
 }
@@ -185,6 +186,8 @@ a:hover .gm-card-title {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    display: block;
     transition: transform 0.5s ease;
 }
 
@@ -193,20 +196,21 @@ a:hover .gm-card-title {
 }
 
 .gm-hero-overlay-card {
-    background: var(--gm-color-sand);
-    max-width: 864px;
-    width: 88%;
-    margin: -72px auto 0;
-    position: relative;
-    z-index: 2;
-    padding: 24px 32px;
+    background: #E5E3DB;
+    max-width: 820px;
+    width: 82%;
+    position: absolute;
+    bottom: -60px;
+    left: 80px;
+    z-index: 10;
+    padding: 26px 36px;
     box-sizing: border-box;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 
 .gm-hero-overlay-title {
     font-family: var(--gm-font-sans);
-    font-size: clamp(22px, 2.5vw, 28px);
+    font-size: clamp(22px, 2.3vw, 28px);
     line-height: 1.3;
     font-weight: 600;
     color: var(--gm-color-dark);
@@ -222,46 +226,36 @@ a:hover .gm-card-title {
     margin: 0;
 }
 
-/* Right Video / Portrait Card */
+/* Right Feature Card */
 .gm-hero-side {
-    width: 264px;
+    width: 320px;
     flex-shrink: 0;
     display: flex;
-    flex-direction: column;
-    padding-top: 10px;
-}
-
-.gm-hero-video-card {
-    width: 100%;
-    height: 330px;
-    background: #FAF1EB;
-    position: relative;
-    overflow: hidden;
-    display: block;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.gm-hero-video-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.gm-hero-video-badge {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    color: #ffffff;
-    padding: 8px 12px;
-    font-size: 11px;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    padding: 24px 36px;
+    box-sizing: border-box;
+    background: #FAF9F6;
+}
+
+.gm-hero-portrait-link {
+    display: block;
+    text-decoration: none;
+    max-width: 250px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.gm-hero-portrait-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.gm-hero-portrait-img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .gm-hero-video-badge svg {
@@ -648,19 +642,23 @@ a:hover .gm-card-title {
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 992px) {
     .gm-hero-section {
         flex-direction: column;
+        margin-bottom: 60px;
+    }
+    .gm-hero-image-wrap {
+        height: 350px;
+    }
+    .gm-hero-overlay-card {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        width: 90%;
+        margin: -40px auto 30px;
     }
     .gm-hero-side {
         width: 100%;
-    }
-    .gm-hero-video-card {
-        height: 240px;
-    }
-    .gm-hero-overlay-card {
-        width: 95%;
-        margin-top: -40px;
         padding: 20px;
     }
     .gm-latest-grid {
@@ -724,7 +722,7 @@ a:hover .gm-card-title {
                 <?php if ( $hero_has_post && has_post_thumbnail() ) : ?>
                     <?php the_post_thumbnail( 'full' ); ?>
                 <?php else : ?>
-                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=1400" alt="Beauty Product Feature" />
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hero-corkboard.png' ); ?>" alt="Beauty Product Feature" />
                 <?php endif; ?>
             </div>
             <div class="gm-hero-overlay-card">
@@ -746,7 +744,7 @@ a:hover .gm-card-title {
                     if ( $hero_has_post && has_excerpt() ) {
                         echo esc_html( get_the_excerpt() );
                     } else {
-                        echo 'In the endless sea of launches, it feels like drama is the new marketing strategy.';
+                        echo 'In the endless sea of launches, it feels like drama is the only way to break through the noise. But is it worth it?';
                     }
                     ?>
                 </p>
@@ -756,12 +754,8 @@ a:hover .gm-card-title {
 
         <!-- Right: Video Player / Portrait Story -->
         <div class="gm-hero-side">
-            <a href="<?php echo esc_url( home_url( '/category/trends-innovation/' ) ); ?>" class="gm-hero-video-card">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600" alt="Trending Video Feature" />
-                <div class="gm-hero-video-badge">
-                    <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    <span>Trending Video Highlight</span>
-                </div>
+            <a href="<?php echo esc_url( home_url( '/category/trends-innovation/' ) ); ?>" class="gm-hero-portrait-link">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hero-portrait-card.png' ); ?>" alt="The Era of Influence - Alix Earle" class="gm-hero-portrait-img" />
             </a>
         </div>
     </section>
