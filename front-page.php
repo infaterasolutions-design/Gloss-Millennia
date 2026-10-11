@@ -30,18 +30,22 @@ get_header();
 
 .gm-home-wrapper {
     width: 100%;
-    max-width: 1536px;
-    margin: 0 auto;
-    padding: 24px 20px 80px;
+    margin: 0;
+    padding: 24px 0 80px;
     box-sizing: border-box;
     font-family: var(--gm-font-sans);
     color: var(--gm-color-dark);
 }
 
-.gm-container {
+/* Ensure all boxed sections align exactly with the header container */
+.gm-container,
+.gm-home-wrapper .container {
     width: 100%;
     max-width: 1240px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-sm, 1rem);
+    padding-right: var(--spacing-sm, 1rem);
     box-sizing: border-box;
 }
 
@@ -355,15 +359,10 @@ a:hover .gm-card-title {
    ========================================================================== */
 .gm-trending-wrapper {
     background: var(--gm-color-sand);
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    padding: 50px 20px 70px;
+    width: 100%;
+    padding: 50px 0 70px;
     box-sizing: border-box;
-    margin-bottom: 80px;
+    margin: 0 0 80px;
 }
 
 .gm-trending-header-box {
@@ -714,7 +713,7 @@ a:hover .gm-card-title {
         $hero_post_id = get_the_ID();
     }
     ?>
-    <section class="gm-hero-section">
+    <section class="gm-hero-section container">
         <!-- Left: Main Featured Article -->
         <a href="<?php echo $hero_has_post ? esc_url( get_permalink() ) : '#'; ?>" class="gm-hero-main">
             <div class="gm-hero-image-wrap">
@@ -767,7 +766,7 @@ a:hover .gm-card-title {
     <!-- =====================================================================
          2. THE LATEST SECTION (3 Columns Grid + 300px Sticky Sidebar Ad)
          ===================================================================== -->
-    <section class="gm-latest-section gm-container">
+    <section class="gm-latest-section container">
         <h2 class="gm-heading-xl">The Latest</h2>
         <div class="gm-accent-line"></div>
 
@@ -962,7 +961,7 @@ a:hover .gm-card-title {
          3. TRENDING NOW SECTION (Full-Width Sand Banner + 4-Col Grid)
          ===================================================================== -->
     <section class="gm-trending-wrapper">
-        <div class="gm-container">
+        <div class="container">
             <div class="gm-trending-header-box">
                 <h2 class="gm-trending-title">Trending Now</h2>
             </div>
@@ -1021,7 +1020,7 @@ a:hover .gm-card-title {
     <!-- =====================================================================
          4. MOST CLICKED SECTION (4 Columns Grid)
          ===================================================================== -->
-    <section class="gm-most-clicked-section gm-container">
+    <section class="gm-most-clicked-section container">
         <h2 class="gm-heading-xl">Most Clicked</h2>
         <div class="gm-accent-line"></div>
 
@@ -1078,7 +1077,7 @@ a:hover .gm-card-title {
     <!-- =====================================================================
          5. SHOPPING SECTION (Featured Large + 4 Horizontal Items + Seal Box)
          ===================================================================== -->
-    <section class="gm-shopping-section gm-container">
+    <section class="gm-shopping-section container">
         <div class="gm-section-header-flex">
             <div>
                 <h2 class="gm-heading-xl" style="margin-bottom: 6px;">Shopping</h2>
@@ -1162,7 +1161,7 @@ a:hover .gm-card-title {
     <!-- =====================================================================
          6. NAILS SECTION (Featured Large + 4 Horizontal Items)
          ===================================================================== -->
-    <section class="gm-nails-section gm-container">
+    <section class="gm-nails-section container">
         <div class="gm-section-header-flex">
             <div>
                 <h2 class="gm-heading-xl" style="margin-bottom: 6px;">Nails</h2>
