@@ -156,9 +156,13 @@ a:hover .gm-card-title {
    1. HERO SPLIT SECTION
    ========================================================================== */
 .gm-hero-section {
+    width: 100%;
+    max-width: 1536px;
+    margin: 0 auto 70px;
+    padding: 0 24px;
+    box-sizing: border-box;
     display: flex;
     gap: 32px;
-    margin-bottom: 70px;
     align-items: flex-start;
 }
 
@@ -713,7 +717,7 @@ a:hover .gm-card-title {
         $hero_post_id = get_the_ID();
     }
     ?>
-    <section class="gm-hero-section container">
+    <section class="gm-hero-section">
         <!-- Left: Main Featured Article -->
         <a href="<?php echo $hero_has_post ? esc_url( get_permalink() ) : '#'; ?>" class="gm-hero-main">
             <div class="gm-hero-image-wrap">
