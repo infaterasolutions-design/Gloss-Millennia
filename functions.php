@@ -1342,7 +1342,7 @@ add_action( 'wp_head', 'tcc_crawl_budget_protector', 1 );
 
 // 1. Optimized Google Fonts Loader (Fixes FOUT / layout shifts)
 function tcc_async_google_fonts() {
-    $font_url = 'https://fonts.googleapis.com/css2?display=block&family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Sacramento&family=Allura&family=Herr+Von+Muellerhoff&family=Antic+Didone&family=Adamina&family=Marcellus&family=Public+Sans:wght@600&family=Poppins:wght@400&family=Bodoni+Moda:wght@400&family=Vidaloka';
+    $font_url = 'https://fonts.googleapis.com/css2?display=block&family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Sacramento&family=Allura&family=Herr+Von+Muellerhoff&family=Antic+Didone&family=Adamina&family=Marcellus&family=Public+Sans:wght@600&family=Poppins:wght@400&family=Bodoni+Moda:wght@400&family=Vidaloka&family=Jost:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400';
     
     echo "<!-- OPTIMIZED GOOGLE FONTS LOADER -->\n";
     echo "<link rel='preconnect' href='https://fonts.googleapis.com'>\n";
