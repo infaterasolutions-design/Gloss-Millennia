@@ -98,6 +98,14 @@ get_header();
     color: var(--gm-color-gray-dark);
 }
 
+.gm-time-date {
+    display: none;
+}
+
+.gm-time-relative {
+    display: inline;
+}
+
 .gm-card-title {
     font-family: var(--gm-font-sans);
     font-size: 20px;
@@ -674,8 +682,85 @@ a:hover .gm-card-title {
     }
 }
 
+/* 2-Column Mobile Grid for "The Latest" Section (matching reference style) */
+@media (max-width: 768px) {
+    .gm-latest-layout {
+        gap: 24px;
+    }
+    .gm-latest-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 22px 14px;
+    }
+    .gm-latest-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .gm-latest-card .gm-card-img-wrap {
+        aspect-ratio: 4 / 3;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        overflow: hidden;
+    }
+    .gm-latest-card .gm-card-meta {
+        display: contents;
+    }
+    .gm-latest-card .gm-card-img-wrap {
+        order: 1;
+    }
+    .gm-latest-card .gm-category-tag {
+        order: 2;
+        font-family: var(--gm-font-sans);
+        font-size: 11px;
+        line-height: 15px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: #1a56db;
+        margin: 2px 0 4px;
+        display: block;
+    }
+    .gm-latest-card .gm-meta-dot {
+        display: none !important;
+    }
+    .gm-latest-card .gm-card-title {
+        order: 3;
+        font-family: var(--gm-font-sans);
+        font-size: 14px;
+        line-height: 1.35;
+        font-weight: 600;
+        letter-spacing: 0.15px;
+        color: #111827;
+        margin: 0 0 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .gm-latest-card .gm-meta-time {
+        order: 4;
+        font-family: var(--gm-font-sans);
+        font-size: 11px;
+        line-height: 14px;
+        letter-spacing: 0.2px;
+        text-transform: none;
+        color: #6b7280;
+        margin-top: auto;
+        display: block;
+    }
+    .gm-latest-card .gm-time-relative {
+        display: none;
+    }
+    .gm-latest-card .gm-time-date {
+        display: inline;
+    }
+    .gm-latest-card .gm-card-excerpt,
+    .gm-latest-card .gm-card-author {
+        display: none !important;
+    }
+}
+
 @media (max-width: 600px) {
-    .gm-latest-grid,
     .gm-trending-grid,
     .gm-four-col-grid {
         grid-template-columns: 1fr;
@@ -692,7 +777,17 @@ a:hover .gm-card-title {
         height: 280px;
     }
     .gm-heading-xl {
-        font-size: 36px;
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 440px) {
+    .gm-latest-grid {
+        gap: 16px 10px;
+    }
+    .gm-latest-card .gm-card-title {
+        font-size: 13px;
+        line-height: 1.3;
     }
 }
 </style>
@@ -788,6 +883,7 @@ a:hover .gm-card-title {
                             'title'    => '24 Dark Chrome Nail Ideas for a Moody Fall Manicure',
                             'cat'      => 'Nails',
                             'time'     => '21 hours ago',
+                            'date'     => 'Aug 26, 2026',
                             'excerpt'  => 'From Glazed Black to Metallic Blue.',
                             'author'   => 'By Rebecca Norris',
                             'img'      => 'https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=600'
@@ -796,6 +892,7 @@ a:hover .gm-card-title {
                             'title'    => 'There’s No Better Fall Manicure Than One of These Rich Berry Shades',
                             'cat'      => 'Nails',
                             'time'     => '21 hours ago',
+                            'date'     => 'Aug 26, 2026',
                             'excerpt'  => 'Simply sumptuous.',
                             'author'   => 'By Rebecca Norris',
                             'img'      => 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&q=80&w=600'
@@ -804,6 +901,7 @@ a:hover .gm-card-title {
                             'title'    => 'These 26 October Beauty and Style Launches Are a Dream',
                             'cat'      => 'Product & Brand News',
                             'time'     => '1 day ago',
+                            'date'     => 'Aug 25, 2026',
                             'excerpt'  => 'From Rhode newness to lace-trimmed sweats and so much more.',
                             'author'   => 'By Sophie Vilensky',
                             'img'      => 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=600'
@@ -812,6 +910,7 @@ a:hover .gm-card-title {
                             'title'    => '“Cherry Noir” Nails Are Taking Over for Fall 2026',
                             'cat'      => 'Nails',
                             'time'     => '1 day ago',
+                            'date'     => 'Aug 25, 2026',
                             'excerpt'  => 'Just ask Anne Hathaway.',
                             'author'   => 'By Sophie Vilensky',
                             'img'      => 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&q=80&w=600'
@@ -820,6 +919,7 @@ a:hover .gm-card-title {
                             'title'    => 'Pamela Anderson’s New Lip Balm Was Inspired by Gardening',
                             'cat'      => 'Product & Brand News',
                             'time'     => '2 days ago',
+                            'date'     => 'Aug 24, 2026',
                             'excerpt'  => 'The icon herself fills us in.',
                             'author'   => 'By Sophie Vilensky',
                             'img'      => 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&q=80&w=600'
@@ -828,6 +928,7 @@ a:hover .gm-card-title {
                             'title'    => 'The Great Bringback Is Upon Us',
                             'cat'      => 'Trends & Innovation',
                             'time'     => '2 days ago',
+                            'date'     => 'Aug 24, 2026',
                             'excerpt'  => 'In a world of constant newness, brands are finally listening to customer nostalgia.',
                             'author'   => 'By Kara Nesvig',
                             'img'      => 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=600'
@@ -836,6 +937,7 @@ a:hover .gm-card-title {
                             'title'    => 'Funky Little Hats Are Adding Whimsy to Our Fall Looks',
                             'cat'      => 'Fashion Trends',
                             'time'     => '2 days ago',
+                            'date'     => 'Aug 23, 2026',
                             'excerpt'  => 'Trade your baseball cap for these playful picks.',
                             'author'   => 'By Jennifer Hussein',
                             'img'      => 'https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&q=80&w=600'
@@ -844,6 +946,7 @@ a:hover .gm-card-title {
                             'title'    => '20 ‘70s Hairstyles to Try This Fall, from Funky to Classic',
                             'cat'      => 'Hair',
                             'time'     => '3 days ago',
+                            'date'     => 'Aug 22, 2026',
                             'excerpt'  => 'For the canyon girls.',
                             'author'   => 'By Elinor Block',
                             'img'      => 'https://images.unsplash.com/photo-1522337094133-f4cc4856a9db?auto=format&fit=crop&q=80&w=600'
@@ -852,6 +955,7 @@ a:hover .gm-card-title {
                             'title'    => 'How “Devil Horn” Updos Brought High Fashion to the Red Carpet',
                             'cat'      => 'Trends & Innovation',
                             'time'     => '3 days ago',
+                            'date'     => 'Aug 21, 2026',
                             'excerpt'  => 'Her makeup artist Heba Thorisdottir gives us all the details.',
                             'author'   => 'By Sophie Vilensky',
                             'img'      => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600'
@@ -860,6 +964,7 @@ a:hover .gm-card-title {
                             'title'    => '7 Fall 2026 Protective Styles That’ll Have You Booked and Busy',
                             'cat'      => 'Protective Hairstyles',
                             'time'     => '3 days ago',
+                            'date'     => 'Aug 20, 2026',
                             'excerpt'  => 'Your fall hair mood board starts here.',
                             'author'   => 'By Annie Blay-Tettey',
                             'img'      => 'https://images.unsplash.com/photo-1584297091622-af8e5ad194db?auto=format&fit=crop&q=80&w=600'
@@ -868,6 +973,7 @@ a:hover .gm-card-title {
                             'title'    => 'Soak up All the Fall Energy With These 19 Autumn Acrylic Nails',
                             'cat'      => 'Nails',
                             'time'     => '3 days ago',
+                            'date'     => 'Aug 19, 2026',
                             'excerpt'  => 'Such a vibe.',
                             'author'   => 'By Madelyn Reed',
                             'img'      => 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=600'
@@ -876,6 +982,7 @@ a:hover .gm-card-title {
                             'title'    => 'Amazon’s Best Beauty Deals Include Dyson Styling Tools',
                             'cat'      => 'Skin',
                             'time'     => '4 days ago',
+                            'date'     => 'Aug 18, 2026',
                             'excerpt'  => 'Plus, rare discounts on Saie and Tarte.',
                             'author'   => 'By Alyssa Kaplan',
                             'img'      => 'https://images.unsplash.com/photo-1512290900672-1f4868cb53eb?auto=format&fit=crop&q=80&w=600'
@@ -900,7 +1007,10 @@ a:hover .gm-card-title {
                                 <div class="gm-card-meta">
                                     <span class="gm-category-tag"><?php echo esc_html( $cat_name ); ?></span>
                                     <span class="gm-meta-dot"></span>
-                                    <span class="gm-meta-time"><?php echo esc_html( human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago' ); ?></span>
+                                    <span class="gm-meta-time">
+                                        <span class="gm-time-relative"><?php echo esc_html( human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago' ); ?></span>
+                                        <span class="gm-time-date"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></span>
+                                    </span>
                                 </div>
                                 <h3 class="gm-card-title"><?php the_title(); ?></h3>
                                 <p class="gm-card-excerpt"><?php echo wp_trim_words( get_the_excerpt(), 12, '...' ); ?></p>
@@ -923,7 +1033,10 @@ a:hover .gm-card-title {
                             <div class="gm-card-meta">
                                 <span class="gm-category-tag"><?php echo esc_html( $item['cat'] ); ?></span>
                                 <span class="gm-meta-dot"></span>
-                                <span class="gm-meta-time"><?php echo esc_html( $item['time'] ); ?></span>
+                                <span class="gm-meta-time">
+                                    <span class="gm-time-relative"><?php echo esc_html( $item['time'] ); ?></span>
+                                    <span class="gm-time-date"><?php echo esc_html( $item['date'] ); ?></span>
+                                </span>
                             </div>
                             <h3 class="gm-card-title"><?php echo esc_html( $item['title'] ); ?></h3>
                             <p class="gm-card-excerpt"><?php echo esc_html( $item['excerpt'] ); ?></p>
