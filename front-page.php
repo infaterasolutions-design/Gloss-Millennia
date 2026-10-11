@@ -197,11 +197,12 @@ a:hover .gm-card-title {
 
 .gm-hero-overlay-card {
     background: #E5E3DB;
-    max-width: 820px;
-    width: 82%;
+    max-width: 864px;
+    width: 86%;
     position: absolute;
     bottom: -60px;
-    left: 80px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
     padding: 26px 36px;
     box-sizing: border-box;
@@ -654,6 +655,7 @@ a:hover .gm-card-title {
         position: relative;
         bottom: auto;
         left: auto;
+        transform: none;
         width: 90%;
         margin: -40px auto 30px;
     }
