@@ -471,10 +471,11 @@ a:hover .gm-card-title {
     font-family: var(--gm-font-display);
     font-size: clamp(48px, 6vw, 86px);
     line-height: 1.1;
-    font-weight: 300;
+    font-weight: 400;
     text-transform: uppercase;
-    color: #111111;
-    letter-spacing: 2px;
+    color: #FFFFFF;
+    -webkit-text-stroke: 1.5px #000000;
+    letter-spacing: 3px;
     margin: 0;
 }
 
@@ -931,6 +932,11 @@ a:hover .gm-card-title {
 }
 
 @media (max-width: 600px) {
+    .gm-trending-title {
+        font-size: clamp(34px, 8.5vw, 48px);
+        -webkit-text-stroke: 1.2px #000000;
+        letter-spacing: 2px;
+    }
     .gm-trending-grid,
     .gm-four-col-grid {
         grid-template-columns: 1fr;
