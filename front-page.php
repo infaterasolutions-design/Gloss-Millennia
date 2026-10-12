@@ -322,22 +322,16 @@ a:hover .gm-card-title {
     transform: scale(1.04);
 }
 
-/* Sticky Sidebar Container (Newsletter + Ad) */
+/* Sidebar: Scrollable Newsletter + Sticky 300x600 Ad Below */
 .gm-latest-sidebar {
     width: 300px;
     flex-shrink: 0;
-}
-
-.gm-sidebar-sticky {
-    position: sticky;
-    top: 100px;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 300px;
 }
 
-/* Newsletter Card */
+/* 1. Scrollable Newsletter Card */
 .gm-newsletter-card {
     width: 300px;
     background: #FAF8F5;
@@ -422,8 +416,10 @@ a:hover .gm-card-title {
     margin: 12px 0 0 0;
 }
 
-/* Advertisement Card Below Newsletter */
-.gm-ad-wrap {
+/* 2. Sticky Advertisement Card Below (300x600 Half Page like before) */
+.gm-ad-sticky-wrap {
+    position: sticky;
+    top: 100px;
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -438,12 +434,12 @@ a:hover .gm-card-title {
     text-transform: uppercase;
     color: var(--gm-color-gray-muted);
     text-align: center;
-    margin: 6px 0;
+    margin: 8px 0;
 }
 
 .gm-ad-box {
     width: 300px;
-    min-height: 250px;
+    min-height: 600px;
     background: #F4F4F4;
     border: 1px dashed #CCCCCC;
     display: flex;
@@ -788,10 +784,11 @@ a:hover .gm-card-title {
     }
     .gm-latest-sidebar {
         width: 100%;
-    }
-    .gm-sidebar-sticky {
-        position: static;
+        align-items: center;
         margin-top: 40px;
+    }
+    .gm-ad-sticky-wrap {
+        position: static;
     }
     .gm-trending-grid,
     .gm-four-col-grid {
@@ -1244,42 +1241,40 @@ a:hover .gm-card-title {
                 </div>
             </div>
 
-            <!-- Right Sticky Sidebar (Newsletter Card + Ad Below) -->
+            <!-- Right Sidebar: Scrollable Newsletter + Sticky 300x600 Ad Below -->
             <aside class="gm-latest-sidebar">
-                <div class="gm-sidebar-sticky">
-                    <!-- 1. Newsletter Card on Top -->
-                    <div class="gm-newsletter-card">
-                        <span class="gm-newsletter-tag">NEWSLETTER</span>
-                        <h3 class="gm-newsletter-title">Beauty & Style in Your Inbox</h3>
-                        <p class="gm-newsletter-desc">Get trend forecasts, editor favorites, and exclusive stories delivered weekly.</p>
-                        <form class="gm-newsletter-form" action="#" method="post" onsubmit="event.preventDefault(); this.querySelector('.gm-newsletter-success').style.display='block'; this.querySelector('.gm-newsletter-fields').style.display='none';">
-                            <div class="gm-newsletter-fields">
-                                <input type="email" class="gm-newsletter-input" placeholder="Your email address" required aria-label="Email address" />
-                                <button type="submit" class="gm-newsletter-btn">SUBSCRIBE</button>
-                            </div>
-                            <div class="gm-newsletter-success" style="display: none; padding: 10px; font-size: 12px; color: #166534; background: #dcfce7; border-radius: 2px; margin-top: 6px;">
-                                Thank you for subscribing!
-                            </div>
-                            <p class="gm-newsletter-privacy">By signing up, you agree to our Terms & Privacy.</p>
-                        </form>
-                    </div>
-
-                    <!-- 2. Advertisement Card Below Newsletter -->
-                    <div class="gm-ad-wrap">
-                        <div class="gm-ad-label">Advertisement</div>
-                        <div class="gm-ad-box">
-                            <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-                                <?php dynamic_sidebar( 'sidebar-1' ); ?>
-                            <?php else : ?>
-                                <div style="font-family: var(--gm-font-sans); color: #888; font-size: 13px; letter-spacing: 1px;">
-                                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" style="margin-bottom: 10px;"><rect x="2" y="2" width="20" height="20" rx="2"></rect><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line></svg>
-                                    <p style="margin: 0; text-transform: uppercase;">300 &times; 250</p>
-                                    <p style="margin: 4px 0 0; font-size: 11px;">Ad Placement</p>
-                                </div>
-                            <?php endif; ?>
+                <!-- 1. Newsletter Card on Top (Scrollable with page) -->
+                <div class="gm-newsletter-card">
+                    <span class="gm-newsletter-tag">NEWSLETTER</span>
+                    <h3 class="gm-newsletter-title">Beauty & Style in Your Inbox</h3>
+                    <p class="gm-newsletter-desc">Get trend forecasts, editor favorites, and exclusive stories delivered weekly.</p>
+                    <form class="gm-newsletter-form" action="#" method="post" onsubmit="event.preventDefault(); this.querySelector('.gm-newsletter-success').style.display='block'; this.querySelector('.gm-newsletter-fields').style.display='none';">
+                        <div class="gm-newsletter-fields">
+                            <input type="email" class="gm-newsletter-input" placeholder="Your email address" required aria-label="Email address" />
+                            <button type="submit" class="gm-newsletter-btn">SUBSCRIBE</button>
                         </div>
-                        <div class="gm-ad-label">Advertisement</div>
+                        <div class="gm-newsletter-success" style="display: none; padding: 10px; font-size: 12px; color: #166534; background: #dcfce7; border-radius: 2px; margin-top: 6px;">
+                            Thank you for subscribing!
+                        </div>
+                        <p class="gm-newsletter-privacy">By signing up, you agree to our Terms & Privacy.</p>
+                    </form>
+                </div>
+
+                <!-- 2. Sticky Advertisement Card Below (300x600 Half Page like before) -->
+                <div class="gm-ad-sticky-wrap">
+                    <div class="gm-ad-label">Advertisement</div>
+                    <div class="gm-ad-box">
+                        <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+                            <?php dynamic_sidebar( 'sidebar-1' ); ?>
+                        <?php else : ?>
+                            <div style="font-family: var(--gm-font-sans); color: #888; font-size: 13px; letter-spacing: 1px;">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" style="margin-bottom: 12px;"><rect x="2" y="2" width="20" height="20" rx="2"></rect><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line></svg>
+                                <p style="margin: 0; text-transform: uppercase;">300 &times; 600</p>
+                                <p style="margin: 4px 0 0; font-size: 11px;">Half Page Ad Placement</p>
+                            </div>
+                        <?php endif; ?>
                     </div>
+                    <div class="gm-ad-label">Advertisement</div>
                 </div>
             </aside>
         </div>
