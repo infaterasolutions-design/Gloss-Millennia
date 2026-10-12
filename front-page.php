@@ -471,18 +471,11 @@ a:hover .gm-card-title {
     font-family: var(--gm-font-display);
     font-size: clamp(48px, 6vw, 86px);
     line-height: 1.1;
-    font-weight: 300;
+    font-weight: 400;
     text-transform: uppercase;
     color: var(--gm-color-sand);
-    text-shadow:
-        -1px -1px 0 #111111,
-         1px -1px 0 #111111,
-        -1px  1px 0 #111111,
-         1px  1px 0 #111111,
-         0   -1px 0 #111111,
-         0    1px 0 #111111,
-        -1px  0   0 #111111,
-         1px  0   0 #111111;
+    -webkit-text-stroke: 2px #111111;
+    paint-order: stroke fill;
     letter-spacing: 3px;
     margin: 0;
 }
