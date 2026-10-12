@@ -591,13 +591,15 @@ a:hover .gm-card-title {
    6. NAILS SECTION - THE MONTH'S NAIL EDIT (Figma Editorial Grid)
    ========================================================================== */
 .gm-nails-section {
-    margin-bottom: 90px;
+    margin-bottom: 60px;
 }
 
 .gm-nail-edit-grid {
     display: grid;
-    grid-template-columns: 1.45fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(2, clamp(160px, 22vh, 210px));
+    max-width: 1020px;
+    margin: 0 auto;
     gap: 4px;
     background: #ffffff;
 }
@@ -605,7 +607,7 @@ a:hover .gm-card-title {
 .gm-nail-edit-intro {
     grid-row: span 2;
     background: #ECE7E6;
-    padding: 50px 42px;
+    padding: clamp(20px, 2.5vw, 36px) clamp(18px, 2.2vw, 30px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -615,11 +617,11 @@ a:hover .gm-card-title {
 
 .gm-nail-edit-title {
     font-family: var(--gm-font-serif);
-    font-size: clamp(26px, 2.5vw, 36px);
-    line-height: 1.25;
+    font-size: clamp(22px, 2.1vw, 28px);
+    line-height: 1.2;
     font-weight: 400;
     color: #111111;
-    margin: 0 0 18px 0;
+    margin: 0 0 12px 0;
     letter-spacing: -0.2px;
 }
 
@@ -630,22 +632,22 @@ a:hover .gm-card-title {
 
 .gm-nail-edit-desc {
     font-family: var(--gm-font-sans);
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 13.5px;
+    line-height: 1.5;
     color: #444444;
-    margin: 0 0 32px 0;
-    max-width: 290px;
+    margin: 0 0 20px 0;
+    max-width: 270px;
 }
 
 .gm-nail-edit-btn {
     font-family: var(--gm-font-sans);
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 1.6px;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
     color: #ffffff;
     background: #111111;
-    padding: 13px 22px;
+    padding: 11px 20px;
     text-decoration: none;
     display: inline-block;
     transition: background 0.25s ease, transform 0.2s ease;
@@ -662,12 +664,12 @@ a:hover .gm-card-title {
     overflow: hidden;
     position: relative;
     background: #ECE7E6;
+    height: 100%;
 }
 
 .gm-nail-img-wrap {
     width: 100%;
     height: 100%;
-    aspect-ratio: 3 / 4;
     overflow: hidden;
     position: relative;
 }
@@ -743,18 +745,20 @@ a:hover .gm-card-title {
     }
     .gm-nail-edit-grid {
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: auto;
+        grid-template-rows: auto repeat(2, minmax(0, 180px));
+        max-width: 100%;
         gap: 6px;
     }
     .gm-nail-edit-intro {
         grid-column: span 3;
         grid-row: auto;
-        padding: 40px 30px;
+        padding: 28px 20px;
         text-align: center;
         align-items: center;
     }
     .gm-nail-edit-desc {
         max-width: 480px;
+        margin-bottom: 18px;
     }
 }
 
@@ -856,16 +860,22 @@ a:hover .gm-card-title {
     }
     .gm-nail-edit-grid {
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto repeat(3, minmax(0, 160px));
         gap: 6px;
     }
     .gm-nail-edit-intro {
         grid-column: span 2;
-        padding: 34px 20px;
+        padding: 24px 16px;
         text-align: center;
         align-items: center;
     }
     .gm-nail-edit-title {
-        font-size: 28px;
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    .gm-nail-edit-desc {
+        font-size: 13px;
+        margin-bottom: 16px;
     }
     .gm-nail-edit-btn {
         width: 100%;
