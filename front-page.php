@@ -469,11 +469,11 @@ a:hover .gm-card-title {
 
 .gm-trending-title {
     font-family: var(--gm-font-display);
-    font-size: clamp(48px, 6vw, 86px);
+    font-size: clamp(60px, 8vw, 110px);
     line-height: 1.1;
     font-weight: 400;
     text-transform: uppercase;
-    color: var(--gm-color-sand);
+    color: #FFFFFF;
     -webkit-text-stroke: 2px #111111;
     paint-order: stroke fill;
     letter-spacing: 3px;
