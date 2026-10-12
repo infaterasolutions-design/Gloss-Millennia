@@ -588,35 +588,99 @@ a:hover .gm-card-title {
 }
 
 /* ==========================================================================
-   6. NAILS SECTION
+   6. NAILS SECTION - THE MONTH'S NAIL EDIT (Figma Editorial Grid)
    ========================================================================== */
 .gm-nails-section {
     margin-bottom: 90px;
 }
 
-.gm-nails-grid {
+.gm-nail-edit-grid {
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: 40px;
+    grid-template-columns: 1.45fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+    background: #ffffff;
+}
+
+.gm-nail-edit-intro {
+    grid-row: span 2;
+    background: #ECE7E6;
+    padding: 50px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: flex-start;
+    box-sizing: border-box;
 }
 
-.gm-nails-thumb {
-    width: 180px;
-    height: 135px;
-    flex-shrink: 0;
+.gm-nail-edit-title {
+    font-family: var(--gm-font-serif);
+    font-size: clamp(26px, 2.5vw, 36px);
+    line-height: 1.25;
+    font-weight: 400;
+    color: #111111;
+    margin: 0 0 18px 0;
+    letter-spacing: -0.2px;
+}
+
+.gm-nail-edit-title em {
+    font-style: italic;
+    font-family: var(--gm-font-serif);
+}
+
+.gm-nail-edit-desc {
+    font-family: var(--gm-font-sans);
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444444;
+    margin: 0 0 32px 0;
+    max-width: 290px;
+}
+
+.gm-nail-edit-btn {
+    font-family: var(--gm-font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #111111;
+    padding: 13px 22px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.gm-nail-edit-btn:hover {
+    background: #333333;
+    color: #ffffff;
+}
+
+.gm-nail-card {
+    display: block;
+    text-decoration: none;
     overflow: hidden;
-    background: #eee;
+    position: relative;
+    background: #ECE7E6;
 }
 
-.gm-nails-thumb img {
+.gm-nail-img-wrap {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    position: relative;
+}
+
+.gm-nail-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    display: block;
+    transition: transform 0.45s ease;
 }
 
-.gm-horizontal-item:hover .gm-nails-thumb img {
+.gm-nail-card:hover .gm-nail-img-wrap img {
     transform: scale(1.05);
 }
 
@@ -645,9 +709,6 @@ a:hover .gm-card-title {
         grid-column: span 2;
         max-width: 500px;
         margin: 20px auto 0;
-    }
-    .gm-nails-grid {
-        grid-template-columns: 1fr;
     }
 }
 
@@ -679,6 +740,21 @@ a:hover .gm-card-title {
     }
     .gm-seal-box {
         grid-column: span 1;
+    }
+    .gm-nail-edit-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap: 6px;
+    }
+    .gm-nail-edit-intro {
+        grid-column: span 3;
+        grid-row: auto;
+        padding: 40px 30px;
+        text-align: center;
+        align-items: center;
+    }
+    .gm-nail-edit-desc {
+        max-width: 480px;
     }
 }
 
@@ -768,8 +844,7 @@ a:hover .gm-card-title {
     .gm-horizontal-item {
         flex-direction: column;
     }
-    .gm-horizontal-thumb,
-    .gm-nails-thumb {
+    .gm-horizontal-thumb {
         width: 100%;
         height: 200px;
     }
@@ -778,6 +853,24 @@ a:hover .gm-card-title {
     }
     .gm-heading-xl {
         font-size: 34px;
+    }
+    .gm-nail-edit-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+    .gm-nail-edit-intro {
+        grid-column: span 2;
+        padding: 34px 20px;
+        text-align: center;
+        align-items: center;
+    }
+    .gm-nail-edit-title {
+        font-size: 28px;
+    }
+    .gm-nail-edit-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
     }
 }
 
@@ -1272,74 +1365,90 @@ a:hover .gm-card-title {
 
 
     <!-- =====================================================================
-         6. NAILS SECTION (Featured Large + 4 Horizontal Items)
+         6. NAILS SECTION - THE MONTH'S NAIL EDIT (Figma Editorial Grid)
          ===================================================================== -->
     <section class="gm-nails-section container">
-        <div class="gm-section-header-flex">
-            <div>
-                <h2 class="gm-heading-xl" style="margin-bottom: 6px;">Nails</h2>
-                <div class="gm-accent-line" style="margin-bottom: 0;"></div>
+        <div class="gm-nail-edit-grid">
+            <!-- 1. Left Feature Text Box (Spans 2 rows on desktop) -->
+            <div class="gm-nail-edit-intro">
+                <h2 class="gm-nail-edit-title">The Month’s <em>Nail Edit</em></h2>
+                <p class="gm-nail-edit-desc">A curated selection of the perfect nail looks – timeless shades, soft details, and styles that always feel elevated.</p>
+                <a href="<?php echo esc_url( home_url( '/category/nails/' ) ); ?>" class="gm-nail-edit-btn">BROWSE NAIL INSPO</a>
             </div>
-            <a href="<?php echo esc_url( home_url( '/category/nails/' ) ); ?>" class="gm-see-all-link">
-                See all Nails &rarr;
-            </a>
-        </div>
 
-        <div class="gm-nails-grid" style="margin-top: 36px;">
-            <!-- Column 1: Featured 1:1 Large Square Card -->
-            <a href="<?php echo esc_url( home_url( '/category/nails/' ) ); ?>" class="gm-featured-square-card">
-                <div class="gm-square-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&q=80&w=800" alt="Fall Nail Ideas" />
-                </div>
-                <span class="gm-category-tag">Nails</span>
-                <h3 class="gm-featured-large-title">27 Fall Nail Ideas That Are as Trendy as They Are Chic</h3>
-                <p class="gm-card-excerpt">New season, new nails.</p>
-                <span class="gm-card-author">By Rebecca Norris</span>
-            </a>
+            <?php
+            // Curated 6 nail looks matching the exact design in the reference screenshot
+            $curated_nails = array(
+                array(
+                    'title' => 'Glazed Burgundy Cat Eye Nails',
+                    'img'   => get_template_directory_uri() . '/assets/images/nail-edit-1.png',
+                    'link'  => home_url( '/category/nails/' )
+                ),
+                array(
+                    'title' => 'Shimmering Burgundy Almond Nails',
+                    'img'   => get_template_directory_uri() . '/assets/images/nail-edit-2.png',
+                    'link'  => home_url( '/category/nails/' )
+                ),
+                array(
+                    'title' => 'Chrome Mauve Rose-Gold Nails',
+                    'img'   => get_template_directory_uri() . '/assets/images/nail-edit-3.png',
+                    'link'  => home_url( '/category/nails/' )
+                ),
+                array(
+                    'title' => 'Brown Polka Dot French Tips',
+                    'img'   => get_template_directory_uri() . '/assets/images/nail-edit-4.png',
+                    'link'  => home_url( '/category/nails/' )
+                ),
+                array(
+                    'title' => 'Black and Gold Chevron French Tips',
+                    'img'   => get_template_directory_uri() . '/assets/images/nail-edit-5.png',
+                    'link'  => home_url( '/category/nails/' )
+                ),
+                array(
+                    'title' => 'Glossy Olive Green Autumn Nails',
+                    'img'   => get_template_directory_uri() . '/assets/images/nail-edit-6.png',
+                    'link'  => home_url( '/category/nails/' )
+                ),
+            );
 
-            <!-- Column 2: Stack of 4 Horizontal Cards -->
-            <div class="gm-horizontal-list">
-                <?php
-                $nails_items = array(
-                    array(
-                        'cat'    => 'Nails',
-                        'title'  => '24 Short Manicures for Fall With Seasonal Statements',
-                        'author' => 'By Catharine Malzahn',
-                        'img'    => 'https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=400'
-                    ),
-                    array(
-                        'cat'    => 'Nails',
-                        'title'  => '26 Fall French Manicures to Add Intrigue to Any Autumn Look',
-                        'author' => 'By Rebecca Norris',
-                        'img'    => 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&q=80&w=400'
-                    ),
-                    array(
-                        'cat'    => 'Nails',
-                        'title'  => 'Jammy Nails are the Sweetest Fall Manicure Idea—21 Looks We Love',
-                        'author' => 'By Rebecca Norris',
-                        'img'    => 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=400'
-                    ),
-                    array(
-                        'cat'    => 'Nails',
-                        'title'  => 'Dusty Pastels Are Fall’s Softest, Most Sophisticated Palette',
-                        'author' => 'By Kara Nesvig',
-                        'img'    => 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&q=80&w=400'
-                    ),
-                );
+            // Check if WordPress posts in 'nails' category exist with featured images
+            $nails_wp_query = new WP_Query( array(
+                'category_name'       => 'nails',
+                'posts_per_page'      => 6,
+                'post_status'         => 'publish',
+                'ignore_sticky_posts' => 1
+            ) );
 
-                foreach ( $nails_items as $item ) : ?>
-                    <a href="<?php echo esc_url( home_url( '/category/nails/' ) ); ?>" class="gm-horizontal-item">
-                        <div class="gm-nails-thumb">
-                            <img src="<?php echo esc_url( $item['img'] ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" />
-                        </div>
-                        <div class="gm-horizontal-content">
-                            <span class="gm-category-tag" style="font-size: 11px;"><?php echo esc_html( $item['cat'] ); ?></span>
-                            <h4 class="gm-horizontal-title"><?php echo esc_html( $item['title'] ); ?></h4>
-                            <span class="gm-card-author" style="margin-top: 4px;"><?php echo esc_html( $item['author'] ); ?></span>
+            $rendered_count = 0;
+            if ( $nails_wp_query->have_posts() ) {
+                while ( $nails_wp_query->have_posts() ) {
+                    $nails_wp_query->the_post();
+                    $has_thumb = has_post_thumbnail();
+                    $img_src = $has_thumb ? get_the_post_thumbnail_url( get_the_ID(), 'medium_large' ) : $curated_nails[ $rendered_count % count( $curated_nails ) ]['img'];
+                    ?>
+                    <a href="<?php the_permalink(); ?>" class="gm-nail-card" aria-label="<?php the_title_attribute(); ?>">
+                        <div class="gm-nail-img-wrap">
+                            <img src="<?php echo esc_url( $img_src ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy" />
                         </div>
                     </a>
-                <?php endforeach; ?>
-            </div>
+                    <?php
+                    $rendered_count++;
+                }
+                wp_reset_postdata();
+            }
+
+            // Fill remaining slots with the curated editorial images from the screenshot
+            for ( $n = $rendered_count; $n < 6; $n++ ) {
+                $nail_item = $curated_nails[ $n ];
+                ?>
+                <a href="<?php echo esc_url( $nail_item['link'] ); ?>" class="gm-nail-card" aria-label="<?php echo esc_attr( $nail_item['title'] ); ?>">
+                    <div class="gm-nail-img-wrap">
+                        <img src="<?php echo esc_url( $nail_item['img'] ); ?>" alt="<?php echo esc_attr( $nail_item['title'] ); ?>" loading="lazy" />
+                    </div>
+                </a>
+                <?php
+            }
+            ?>
         </div>
     </section>
 
