@@ -473,8 +473,8 @@ a:hover .gm-card-title {
     line-height: 1.1;
     font-weight: 300;
     text-transform: uppercase;
-    color: var(--gm-color-sand);
-    -webkit-text-stroke: 1.2px #111111;
+    color: transparent;
+    -webkit-text-stroke: 1px #111111;
     letter-spacing: 3px;
     margin: 0;
 }
