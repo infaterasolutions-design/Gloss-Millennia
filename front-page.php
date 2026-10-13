@@ -108,10 +108,10 @@ get_header();
 
 .gm-card-title {
     font-family: var(--gm-font-sans);
-    font-size: 20px;
-    line-height: 1.35;
-    letter-spacing: 0.4px;
-    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+    font-weight: 600;
     color: var(--gm-color-dark);
     margin: 8px 0;
     transition: color 0.2s ease;
@@ -549,7 +549,7 @@ a:hover .gm-card-title {
 
 .gm-featured-large-title {
     font-family: var(--gm-font-sans);
-    font-size: 28px;
+    font-size: 32px;
     line-height: 1.25;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -599,9 +599,9 @@ a:hover .gm-card-title {
 
 .gm-horizontal-title {
     font-family: var(--gm-font-sans);
-    font-size: 17px;
-    line-height: 1.35;
-    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 600;
     margin: 4px 0 8px;
     color: var(--gm-color-dark);
 }
@@ -851,16 +851,16 @@ a:hover .gm-card-title {
         gap: 24px 18px;
     }
     .gm-card-title {
-        font-size: 17px;
+        font-size: 21px;
     }
     .gm-card-excerpt {
-        font-size: 14px;
+        font-size: 15px;
     }
     .gm-featured-large-title {
-        font-size: 22px;
+        font-size: 26px;
     }
     .gm-horizontal-title {
-        font-size: 15px;
+        font-size: 18px;
     }
     .gm-trending-wrapper {
         padding: 36px 0 50px;
@@ -941,10 +941,13 @@ a:hover .gm-card-title {
     .gm-latest-card .gm-meta-dot {
         display: none !important;
     }
+    .gm-card-title {
+        font-size: 19px;
+    }
     .gm-latest-card .gm-card-title {
         order: 3;
         font-family: var(--gm-font-sans);
-        font-size: 14px;
+        font-size: 17px;
         line-height: 1.35;
         font-weight: 600;
         letter-spacing: 0.15px;
@@ -1004,7 +1007,7 @@ a:hover .gm-card-title {
         padding: 16px 20px;
     }
     .gm-hero-overlay-title {
-        font-size: 18px;
+        font-size: 22px;
     }
     .gm-hero-overlay-excerpt {
         font-size: 13px;
@@ -1014,7 +1017,7 @@ a:hover .gm-card-title {
         height: 95px;
     }
     .gm-horizontal-title {
-        font-size: 14px;
+        font-size: 17px;
     }
     .gm-seal-title {
         font-size: 17px;
@@ -1058,7 +1061,7 @@ a:hover .gm-card-title {
         padding: 14px 16px;
     }
     .gm-hero-overlay-title {
-        font-size: 16px;
+        font-size: 20px;
         margin: 4px 0;
     }
     .gm-hero-overlay-excerpt {
@@ -1069,10 +1072,10 @@ a:hover .gm-card-title {
         font-size: clamp(24px, 7vw, 34px);
     }
     .gm-featured-large-title {
-        font-size: 20px;
+        font-size: 24px;
     }
     .gm-card-title {
-        font-size: 15px;
+        font-size: 20px;
     }
     .gm-latest-section,
     .gm-most-clicked-section,
@@ -1119,9 +1122,12 @@ a:hover .gm-card-title {
     .gm-latest-grid {
         gap: 16px 10px;
     }
+    .gm-card-title {
+        font-size: 18px;
+    }
     .gm-latest-card .gm-card-title {
-        font-size: 13px;
-        line-height: 1.3;
+        font-size: 16px;
+        line-height: 1.35;
     }
     .gm-trending-title {
         font-size: clamp(24px, 8vw, 36px);
@@ -1131,7 +1137,7 @@ a:hover .gm-card-title {
         font-size: 22px;
     }
     .gm-hero-overlay-title {
-        font-size: 14px;
+        font-size: 18px;
     }
     .gm-hero-overlay-excerpt {
         font-size: 11px;
