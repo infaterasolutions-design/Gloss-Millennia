@@ -807,12 +807,15 @@ a:hover .gm-card-title {
 }
 
 @media (max-width: 992px) {
+    .gm-home-wrapper {
+        padding: 16px 0 60px;
+    }
     .gm-hero-section {
         flex-direction: column;
-        margin-bottom: 60px;
+        margin-bottom: 50px;
     }
     .gm-hero-image-wrap {
-        height: 350px;
+        height: 320px;
     }
     .gm-hero-overlay-card {
         position: relative;
@@ -820,20 +823,63 @@ a:hover .gm-card-title {
         left: auto;
         transform: none;
         width: 90%;
-        margin: -40px auto 30px;
+        margin: -40px auto 20px;
+        padding: 20px 24px;
+    }
+    .gm-hero-overlay-title {
+        font-size: 22px;
+    }
+    .gm-hero-overlay-excerpt {
+        font-size: 14px;
     }
     .gm-hero-side {
         width: 100%;
         padding: 20px;
     }
+    .gm-heading-xl {
+        font-size: clamp(30px, 5vw, 48px);
+        margin-bottom: 8px;
+    }
+    .gm-latest-section,
+    .gm-most-clicked-section,
+    .gm-shopping-section,
+    .gm-nails-section {
+        margin-bottom: 50px;
+    }
     .gm-latest-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 24px 18px;
+    }
+    .gm-card-title {
+        font-size: 17px;
+    }
+    .gm-card-excerpt {
+        font-size: 14px;
+    }
+    .gm-featured-large-title {
+        font-size: 22px;
+    }
+    .gm-horizontal-title {
+        font-size: 15px;
+    }
+    .gm-trending-wrapper {
+        padding: 36px 0 50px;
+        margin-bottom: 50px;
+    }
+    .gm-trending-title {
+        font-size: clamp(44px, 7vw, 80px);
+        -webkit-text-stroke: 1.8px #111111;
+    }
+    .gm-trending-header-box {
+        margin-bottom: 30px;
     }
     .gm-shopping-grid {
         grid-template-columns: 1fr;
+        gap: 28px;
     }
     .gm-seal-box {
         grid-column: span 1;
+        padding: 32px 24px;
     }
     .gm-nail-edit-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -930,16 +976,72 @@ a:hover .gm-card-title {
     .gm-latest-card .gm-card-author {
         display: none !important;
     }
+    .gm-heading-xl {
+        font-size: clamp(26px, 6vw, 38px);
+    }
+    .gm-section-header-flex {
+        margin-bottom: 8px;
+    }
+    .gm-see-all-link {
+        font-size: 11px;
+    }
+    .gm-trending-title {
+        font-size: clamp(36px, 9vw, 60px);
+        -webkit-text-stroke: 1.5px #111111;
+        letter-spacing: 2px;
+    }
+    .gm-trending-wrapper {
+        padding: 28px 0 40px;
+        margin-bottom: 40px;
+    }
+    .gm-trending-header-box {
+        margin-bottom: 22px;
+    }
+    .gm-hero-image-wrap {
+        height: 260px;
+    }
+    .gm-hero-overlay-card {
+        padding: 16px 20px;
+    }
+    .gm-hero-overlay-title {
+        font-size: 18px;
+    }
+    .gm-hero-overlay-excerpt {
+        font-size: 13px;
+    }
+    .gm-horizontal-thumb {
+        width: 120px;
+        height: 95px;
+    }
+    .gm-horizontal-title {
+        font-size: 14px;
+    }
+    .gm-seal-title {
+        font-size: 17px;
+    }
+    .gm-seal-desc {
+        font-size: 14px;
+    }
+    .gm-seal-icon-wrap {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 18px;
+    }
+    .gm-newsletter-title {
+        font-size: 20px;
+    }
 }
 
 @media (max-width: 600px) {
     .gm-trending-title {
-        font-size: clamp(34px, 8.5vw, 48px);
-        letter-spacing: 2px;
+        font-size: clamp(28px, 8.5vw, 42px);
+        -webkit-text-stroke: 1.2px #111111;
+        letter-spacing: 1.5px;
     }
     .gm-trending-grid,
     .gm-four-col-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
     }
     .gm-horizontal-item {
         flex-direction: column;
@@ -949,10 +1051,43 @@ a:hover .gm-card-title {
         height: 200px;
     }
     .gm-hero-image-wrap {
-        height: 280px;
+        height: 220px;
+    }
+    .gm-hero-overlay-card {
+        width: 94%;
+        padding: 14px 16px;
+    }
+    .gm-hero-overlay-title {
+        font-size: 16px;
+        margin: 4px 0;
+    }
+    .gm-hero-overlay-excerpt {
+        font-size: 12px;
+        line-height: 1.4;
     }
     .gm-heading-xl {
-        font-size: 34px;
+        font-size: clamp(24px, 7vw, 34px);
+    }
+    .gm-featured-large-title {
+        font-size: 20px;
+    }
+    .gm-card-title {
+        font-size: 15px;
+    }
+    .gm-latest-section,
+    .gm-most-clicked-section,
+    .gm-shopping-section,
+    .gm-nails-section {
+        margin-bottom: 40px;
+    }
+    .gm-accent-line {
+        width: 70px;
+        margin-bottom: 24px;
+    }
+    .gm-newsletter-card,
+    .gm-ad-sticky-wrap {
+        width: 100%;
+        max-width: 300px;
     }
     .gm-nail-edit-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -966,11 +1101,11 @@ a:hover .gm-card-title {
         align-items: center;
     }
     .gm-nail-edit-title {
-        font-size: 26px;
+        font-size: 24px;
         margin-bottom: 10px;
     }
     .gm-nail-edit-desc {
-        font-size: 13.5px;
+        font-size: 13px;
         margin-bottom: 18px;
     }
     .gm-nail-edit-btn {
@@ -987,6 +1122,22 @@ a:hover .gm-card-title {
     .gm-latest-card .gm-card-title {
         font-size: 13px;
         line-height: 1.3;
+    }
+    .gm-trending-title {
+        font-size: clamp(24px, 8vw, 36px);
+        -webkit-text-stroke: 1px #111111;
+    }
+    .gm-heading-xl {
+        font-size: 22px;
+    }
+    .gm-hero-overlay-title {
+        font-size: 14px;
+    }
+    .gm-hero-overlay-excerpt {
+        font-size: 11px;
+    }
+    .gm-hero-image-wrap {
+        height: 180px;
     }
 }
 </style>
