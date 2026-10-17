@@ -61,6 +61,16 @@ get_header();
     letter-spacing: 0.5px;
 }
 
+.gm-heading-xl a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.gm-heading-xl a:hover {
+    opacity: 0.8;
+}
+
 .gm-accent-line {
     width: 100px;
     height: 4.8px;
@@ -478,6 +488,18 @@ a:hover .gm-card-title {
     paint-order: stroke fill;
     letter-spacing: 3px;
     margin: 0;
+}
+
+.gm-trending-title a {
+    color: inherit;
+    -webkit-text-stroke: inherit;
+    paint-order: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.gm-trending-title a:hover {
+    opacity: 0.85;
 }
 
 .gm-trending-grid {
@@ -1154,6 +1176,30 @@ a:hover .gm-card-title {
          1. HERO SECTION (Split Hero Banner + Overlay Badge + Video Story)
          ===================================================================== -->
     <?php
+    if ( ! function_exists( 'gm_find_category' ) ) {
+        function gm_find_category( $slugs, $names = array() ) {
+            if ( is_string( $slugs ) ) {
+                $slugs = array( $slugs );
+            }
+            if ( is_string( $names ) ) {
+                $names = array( $names );
+            }
+            foreach ( $slugs as $slug ) {
+                $cat = get_category_by_slug( $slug );
+                if ( $cat && ! is_wp_error( $cat ) ) {
+                    return $cat;
+                }
+            }
+            foreach ( $names as $name ) {
+                $cat = get_term_by( 'name', $name, 'category' );
+                if ( $cat && ! is_wp_error( $cat ) ) {
+                    return $cat;
+                }
+            }
+            return false;
+        }
+    }
+
     // Fetch latest post for hero if available
     $hero_query = new WP_Query( array(
         'posts_per_page' => 1,
@@ -1218,7 +1264,11 @@ a:hover .gm-card-title {
          2. THE LATEST SECTION (3 Columns Grid + 300px Sticky Sidebar Ad)
          ===================================================================== -->
     <section class="gm-latest-section container">
-        <h2 class="gm-heading-xl">The Latest</h2>
+        <?php
+        $latest_cat = gm_find_category( array( 'the-latest', 'latest' ), array( 'The Latest', 'Latest' ) );
+        $latest_cat_link = $latest_cat ? get_category_link( $latest_cat->term_id ) : home_url( '/category/the-latest/' );
+        ?>
+        <h2 class="gm-heading-xl"><a href="<?php echo esc_url( $latest_cat_link ); ?>">The Latest</a></h2>
         <div class="gm-accent-line"></div>
 
         <div class="gm-latest-layout">
@@ -1226,12 +1276,16 @@ a:hover .gm-card-title {
             <div class="gm-latest-main">
                 <div class="gm-latest-grid">
                     <?php
-                    $latest_query = new WP_Query( array(
+                    $latest_args = array(
                         'posts_per_page'      => 12,
                         'post_status'         => 'publish',
                         'post__not_in'        => array( $hero_post_id ),
                         'ignore_sticky_posts' => 1
-                    ) );
+                    );
+                    if ( $latest_cat && $latest_cat->count > 0 ) {
+                        $latest_args['cat'] = $latest_cat->term_id;
+                    }
+                    $latest_query = new WP_Query( $latest_args );
 
                     // Default sample articles matching Figma layout if fewer WP posts exist
                     $fallback_latest = array(
@@ -1382,7 +1436,7 @@ a:hover .gm-card-title {
                     for ( $i = $count; $i < 12; $i++ ) {
                         $item = $fallback_latest[$i];
                         ?>
-                        <a href="<?php echo esc_url( home_url( '/blog' ) ); ?>" class="gm-latest-card">
+                        <a href="<?php echo esc_url( $latest_cat_link ); ?>" class="gm-latest-card">
                             <div class="gm-card-img-wrap">
                                 <img src="<?php echo esc_url( $item['img'] ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" />
                             </div>
@@ -1449,12 +1503,30 @@ a:hover .gm-card-title {
          ===================================================================== -->
     <section class="gm-trending-wrapper">
         <div class="container">
+            <?php
+            $trending_cat = gm_find_category( array( 'trending-now', 'trending' ), array( 'Trending Now', 'Trending' ) );
+            $trending_cat_link = $trending_cat ? get_category_link( $trending_cat->term_id ) : home_url( '/category/trending-now/' );
+            ?>
             <div class="gm-trending-header-box">
-                <h2 class="gm-trending-title">Trending Now</h2>
+                <h2 class="gm-trending-title"><a href="<?php echo esc_url( $trending_cat_link ); ?>">Trending Now</a></h2>
             </div>
 
             <div class="gm-trending-grid">
                 <?php
+                $trending_args = array(
+                    'posts_per_page'      => 4,
+                    'post_status'         => 'publish',
+                    'ignore_sticky_posts' => 1,
+                );
+                if ( $trending_cat && $trending_cat->count > 0 ) {
+                    $trending_args['cat'] = $trending_cat->term_id;
+                } elseif ( $trending_cat ) {
+                    $trending_args['category_name'] = $trending_cat->slug;
+                } else {
+                    $trending_args['category_name'] = 'trending-now';
+                }
+                $trending_query = new WP_Query( $trending_args );
+
                 $trending_items = array(
                     array(
                         'cat'     => 'Product & Brand News',
@@ -1486,8 +1558,38 @@ a:hover .gm-card-title {
                     ),
                 );
 
-                foreach ( $trending_items as $item ) : ?>
-                    <a href="<?php echo esc_url( home_url( '/blog' ) ); ?>" class="gm-latest-card">
+                $t_count = 0;
+                if ( $trending_query->have_posts() ) {
+                    while ( $trending_query->have_posts() ) {
+                        $trending_query->the_post();
+                        $cats = get_the_category();
+                        $cat_name = ! empty( $cats ) ? $cats[0]->name : ( $trending_cat ? $trending_cat->name : 'Trending' );
+                        ?>
+                        <a href="<?php the_permalink(); ?>" class="gm-latest-card">
+                            <div class="gm-card-img-wrap">
+                                <?php if ( has_post_thumbnail() ) : ?>
+                                    <?php the_post_thumbnail( 'medium_large' ); ?>
+                                <?php else : ?>
+                                    <img src="<?php echo esc_url( $trending_items[$t_count % count($trending_items)]['img'] ); ?>" alt="<?php the_title_attribute(); ?>" />
+                                <?php endif; ?>
+                            </div>
+                            <div class="gm-card-meta">
+                                <span class="gm-category-tag"><?php echo esc_html( $cat_name ); ?></span>
+                            </div>
+                            <h3 class="gm-card-title"><?php the_title(); ?></h3>
+                            <p class="gm-card-excerpt"><?php echo wp_trim_words( get_the_excerpt(), 12, '...' ); ?></p>
+                            <span class="gm-card-author">By <?php the_author(); ?></span>
+                        </a>
+                        <?php
+                        $t_count++;
+                    }
+                    wp_reset_postdata();
+                }
+
+                for ( $i = $t_count; $i < 4; $i++ ) {
+                    $item = $trending_items[$i];
+                    ?>
+                    <a href="<?php echo esc_url( $trending_cat_link ); ?>" class="gm-latest-card">
                         <div class="gm-card-img-wrap">
                             <img src="<?php echo esc_url( $item['img'] ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" />
                         </div>
@@ -1498,7 +1600,9 @@ a:hover .gm-card-title {
                         <p class="gm-card-excerpt"><?php echo esc_html( $item['excerpt'] ); ?></p>
                         <span class="gm-card-author"><?php echo esc_html( $item['author'] ); ?></span>
                     </a>
-                <?php endforeach; ?>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </section>
@@ -1508,11 +1612,29 @@ a:hover .gm-card-title {
          4. MOST CLICKED SECTION (4 Columns Grid)
          ===================================================================== -->
     <section class="gm-most-clicked-section container">
-        <h2 class="gm-heading-xl">Most Clicked</h2>
+        <?php
+        $clicked_cat = gm_find_category( array( 'most-clicked', 'mostclicked', 'popular' ), array( 'Most Clicked', 'Most Popular' ) );
+        $clicked_cat_link = $clicked_cat ? get_category_link( $clicked_cat->term_id ) : home_url( '/category/most-clicked/' );
+        ?>
+        <h2 class="gm-heading-xl"><a href="<?php echo esc_url( $clicked_cat_link ); ?>">Most Clicked</a></h2>
         <div class="gm-accent-line"></div>
 
         <div class="gm-four-col-grid">
             <?php
+            $clicked_args = array(
+                'posts_per_page'      => 4,
+                'post_status'         => 'publish',
+                'ignore_sticky_posts' => 1,
+            );
+            if ( $clicked_cat && $clicked_cat->count > 0 ) {
+                $clicked_args['cat'] = $clicked_cat->term_id;
+            } elseif ( $clicked_cat ) {
+                $clicked_args['category_name'] = $clicked_cat->slug;
+            } else {
+                $clicked_args['category_name'] = 'most-clicked';
+            }
+            $clicked_query = new WP_Query( $clicked_args );
+
             $clicked_items = array(
                 array(
                     'cat'     => 'Product Reviews',
@@ -1544,8 +1666,38 @@ a:hover .gm-card-title {
                 ),
             );
 
-            foreach ( $clicked_items as $item ) : ?>
-                <a href="<?php echo esc_url( home_url( '/blog' ) ); ?>" class="gm-latest-card">
+            $c_count = 0;
+            if ( $clicked_query->have_posts() ) {
+                while ( $clicked_query->have_posts() ) {
+                    $clicked_query->the_post();
+                    $cats = get_the_category();
+                    $cat_name = ! empty( $cats ) ? $cats[0]->name : ( $clicked_cat ? $clicked_cat->name : 'Most Clicked' );
+                    ?>
+                    <a href="<?php the_permalink(); ?>" class="gm-latest-card">
+                        <div class="gm-card-img-wrap">
+                            <?php if ( has_post_thumbnail() ) : ?>
+                                <?php the_post_thumbnail( 'medium_large' ); ?>
+                            <?php else : ?>
+                                <img src="<?php echo esc_url( $clicked_items[$c_count % count($clicked_items)]['img'] ); ?>" alt="<?php the_title_attribute(); ?>" />
+                            <?php endif; ?>
+                        </div>
+                        <div class="gm-card-meta">
+                            <span class="gm-category-tag"><?php echo esc_html( $cat_name ); ?></span>
+                        </div>
+                        <h3 class="gm-card-title"><?php the_title(); ?></h3>
+                        <p class="gm-card-excerpt"><?php echo wp_trim_words( get_the_excerpt(), 12, '...' ); ?></p>
+                        <span class="gm-card-author">By <?php the_author(); ?></span>
+                    </a>
+                    <?php
+                    $c_count++;
+                }
+                wp_reset_postdata();
+            }
+
+            for ( $i = $c_count; $i < 4; $i++ ) {
+                $item = $clicked_items[$i];
+                ?>
+                <a href="<?php echo esc_url( $clicked_cat_link ); ?>" class="gm-latest-card">
                     <div class="gm-card-img-wrap">
                         <img src="<?php echo esc_url( $item['img'] ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" />
                     </div>
@@ -1556,7 +1708,9 @@ a:hover .gm-card-title {
                     <p class="gm-card-excerpt"><?php echo esc_html( $item['excerpt'] ); ?></p>
                     <span class="gm-card-author"><?php echo esc_html( $item['author'] ); ?></span>
                 </a>
-            <?php endforeach; ?>
+                <?php
+            }
+            ?>
         </div>
     </section>
 
@@ -1565,27 +1719,68 @@ a:hover .gm-card-title {
          5. SHOPPING SECTION (Featured Large + 4 Horizontal Items + Seal Box)
          ===================================================================== -->
     <section class="gm-shopping-section container">
+        <?php
+        $shopping_cat = gm_find_category( array( 'shopping', 'shop' ), array( 'Shopping', 'Shop' ) );
+        $shopping_cat_link = $shopping_cat ? get_category_link( $shopping_cat->term_id ) : home_url( '/category/shopping/' );
+
+        $shopping_args = array(
+            'posts_per_page'      => 5,
+            'post_status'         => 'publish',
+            'ignore_sticky_posts' => 1,
+        );
+        if ( $shopping_cat && $shopping_cat->count > 0 ) {
+            $shopping_args['cat'] = $shopping_cat->term_id;
+        } elseif ( $shopping_cat ) {
+            $shopping_args['category_name'] = $shopping_cat->slug;
+        } else {
+            $shopping_args['category_name'] = 'shopping';
+        }
+        $shopping_query = new WP_Query( $shopping_args );
+        $shopping_posts = $shopping_query->posts;
+        ?>
         <div class="gm-section-header-flex">
             <div>
-                <h2 class="gm-heading-xl" style="margin-bottom: 6px;">Shopping</h2>
+                <h2 class="gm-heading-xl" style="margin-bottom: 6px;"><a href="<?php echo esc_url( $shopping_cat_link ); ?>">Shopping</a></h2>
                 <div class="gm-accent-line" style="margin-bottom: 0;"></div>
             </div>
-            <a href="<?php echo esc_url( home_url( '/category/shopping/' ) ); ?>" class="gm-see-all-link">
+            <a href="<?php echo esc_url( $shopping_cat_link ); ?>" class="gm-see-all-link">
                 See all Shopping &rarr;
             </a>
         </div>
 
         <div class="gm-shopping-grid" style="margin-top: 36px;">
             <!-- Column 1: Featured 1:1 Large Square Card -->
-            <a href="<?php echo esc_url( home_url( '/category/shopping/' ) ); ?>" class="gm-featured-square-card">
-                <div class="gm-square-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=700" alt="Byrdie Fall Catalog" />
-                </div>
-                <span class="gm-category-tag">Trends & Innovation</span>
-                <h3 class="gm-featured-large-title">Byrdie’s Fall Catalog Is Here</h3>
-                <p class="gm-card-excerpt">Real trends culled by real editors.</p>
-                <span class="gm-card-author">By Byrdie Editors</span>
-            </a>
+            <?php 
+            if ( ! empty( $shopping_posts ) && isset( $shopping_posts[0] ) ) : 
+                $feat_post = $shopping_posts[0];
+                $feat_cats = get_the_category( $feat_post->ID );
+                $feat_cat_name = ! empty( $feat_cats ) ? $feat_cats[0]->name : ( $shopping_cat ? $shopping_cat->name : 'Shopping' );
+                $feat_author = get_the_author_meta( 'display_name', $feat_post->post_author );
+                $feat_thumb = get_the_post_thumbnail_url( $feat_post->ID, 'large' );
+                if ( ! $feat_thumb ) {
+                    $feat_thumb = 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=700';
+                }
+            ?>
+                <a href="<?php echo esc_url( get_permalink( $feat_post->ID ) ); ?>" class="gm-featured-square-card">
+                    <div class="gm-square-img-wrap">
+                        <img src="<?php echo esc_url( $feat_thumb ); ?>" alt="<?php echo esc_attr( get_the_title( $feat_post->ID ) ); ?>" />
+                    </div>
+                    <span class="gm-category-tag"><?php echo esc_html( $feat_cat_name ); ?></span>
+                    <h3 class="gm-featured-large-title"><?php echo esc_html( get_the_title( $feat_post->ID ) ); ?></h3>
+                    <p class="gm-card-excerpt"><?php echo wp_trim_words( get_the_excerpt( $feat_post->ID ), 12, '...' ); ?></p>
+                    <span class="gm-card-author">By <?php echo esc_html( $feat_author ); ?></span>
+                </a>
+            <?php else : ?>
+                <a href="<?php echo esc_url( $shopping_cat_link ); ?>" class="gm-featured-square-card">
+                    <div class="gm-square-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=700" alt="Byrdie Fall Catalog" />
+                    </div>
+                    <span class="gm-category-tag">Trends & Innovation</span>
+                    <h3 class="gm-featured-large-title">Byrdie’s Fall Catalog Is Here</h3>
+                    <p class="gm-card-excerpt">Real trends culled by real editors.</p>
+                    <span class="gm-card-author">By Byrdie Editors</span>
+                </a>
+            <?php endif; ?>
 
             <!-- Column 2: Stack of 4 Horizontal Cards -->
             <div class="gm-horizontal-list">
@@ -1617,8 +1812,37 @@ a:hover .gm-card-title {
                     ),
                 );
 
-                foreach ( $shopping_items as $item ) : ?>
-                    <a href="<?php echo esc_url( home_url( '/category/shopping/' ) ); ?>" class="gm-horizontal-item">
+                $h_count = 0;
+                if ( ! empty( $shopping_posts ) && count( $shopping_posts ) > 1 ) {
+                    for ( $p = 1; $p < count( $shopping_posts ) && $h_count < 4; $p++ ) {
+                        $h_post = $shopping_posts[$p];
+                        $h_cats = get_the_category( $h_post->ID );
+                        $h_cat_name = ! empty( $h_cats ) ? $h_cats[0]->name : ( $shopping_cat ? $shopping_cat->name : 'Shopping' );
+                        $h_author = get_the_author_meta( 'display_name', $h_post->post_author );
+                        $h_thumb = get_the_post_thumbnail_url( $h_post->ID, 'medium' );
+                        if ( ! $h_thumb ) {
+                            $h_thumb = $shopping_items[$h_count % count($shopping_items)]['img'];
+                        }
+                        ?>
+                        <a href="<?php echo esc_url( get_permalink( $h_post->ID ) ); ?>" class="gm-horizontal-item">
+                            <div class="gm-horizontal-thumb">
+                                <img src="<?php echo esc_url( $h_thumb ); ?>" alt="<?php echo esc_attr( get_the_title( $h_post->ID ) ); ?>" />
+                            </div>
+                            <div class="gm-horizontal-content">
+                                <span class="gm-category-tag" style="font-size: 11px;"><?php echo esc_html( $h_cat_name ); ?></span>
+                                <h4 class="gm-horizontal-title"><?php echo esc_html( get_the_title( $h_post->ID ) ); ?></h4>
+                                <span class="gm-card-author" style="margin-top: 4px;">By <?php echo esc_html( $h_author ); ?></span>
+                            </div>
+                        </a>
+                        <?php
+                        $h_count++;
+                    }
+                }
+
+                for ( $i = $h_count; $i < 4; $i++ ) {
+                    $item = $shopping_items[$i];
+                    ?>
+                    <a href="<?php echo esc_url( $shopping_cat_link ); ?>" class="gm-horizontal-item">
                         <div class="gm-horizontal-thumb">
                             <img src="<?php echo esc_url( $item['img'] ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" />
                         </div>
@@ -1628,7 +1852,9 @@ a:hover .gm-card-title {
                             <span class="gm-card-author" style="margin-top: 4px;"><?php echo esc_html( $item['author'] ); ?></span>
                         </div>
                     </a>
-                <?php endforeach; ?>
+                    <?php
+                }
+                ?>
             </div>
 
             <!-- Column 3: Seal of Approval Promo Box -->
@@ -1651,10 +1877,14 @@ a:hover .gm-card-title {
     <section class="gm-nails-section container">
         <div class="gm-nail-edit-grid">
             <!-- 1. Left Feature Text Box (Spans 2 rows on desktop) -->
+            <?php
+            $nails_cat = gm_find_category( array( 'nails', 'nail-art' ), array( 'Nails', 'Nail Art' ) );
+            $nails_cat_link = $nails_cat ? get_category_link( $nails_cat->term_id ) : home_url( '/category/nails/' );
+            ?>
             <div class="gm-nail-edit-intro">
                 <h2 class="gm-nail-edit-title">The Month’s <em>Nail Edit</em></h2>
                 <p class="gm-nail-edit-desc">A curated selection of the perfect nail looks – timeless shades, soft details, and styles that always feel elevated.</p>
-                <a href="<?php echo esc_url( home_url( '/category/nails/' ) ); ?>" class="gm-nail-edit-btn">BROWSE NAIL INSPO</a>
+                <a href="<?php echo esc_url( $nails_cat_link ); ?>" class="gm-nail-edit-btn">BROWSE NAIL INSPO</a>
             </div>
 
             <?php
@@ -1663,42 +1893,49 @@ a:hover .gm-card-title {
                 array(
                     'title' => 'Glazed Burgundy Cat Eye Nails',
                     'img'   => get_template_directory_uri() . '/assets/images/nail-edit-1.png',
-                    'link'  => home_url( '/category/nails/' )
+                    'link'  => $nails_cat_link
                 ),
                 array(
                     'title' => 'Shimmering Burgundy Almond Nails',
                     'img'   => get_template_directory_uri() . '/assets/images/nail-edit-2.png',
-                    'link'  => home_url( '/category/nails/' )
+                    'link'  => $nails_cat_link
                 ),
                 array(
                     'title' => 'Chrome Mauve Rose-Gold Nails',
                     'img'   => get_template_directory_uri() . '/assets/images/nail-edit-3.png',
-                    'link'  => home_url( '/category/nails/' )
+                    'link'  => $nails_cat_link
                 ),
                 array(
                     'title' => 'Brown Polka Dot French Tips',
                     'img'   => get_template_directory_uri() . '/assets/images/nail-edit-4.png',
-                    'link'  => home_url( '/category/nails/' )
+                    'link'  => $nails_cat_link
                 ),
                 array(
                     'title' => 'Black and Gold Chevron French Tips',
                     'img'   => get_template_directory_uri() . '/assets/images/nail-edit-5.png',
-                    'link'  => home_url( '/category/nails/' )
+                    'link'  => $nails_cat_link
                 ),
                 array(
                     'title' => 'Glossy Olive Green Autumn Nails',
                     'img'   => get_template_directory_uri() . '/assets/images/nail-edit-6.png',
-                    'link'  => home_url( '/category/nails/' )
+                    'link'  => $nails_cat_link
                 ),
             );
 
             // Check if WordPress posts in 'nails' category exist with featured images
-            $nails_wp_query = new WP_Query( array(
-                'category_name'       => 'nails',
+            $nail_args = array(
                 'posts_per_page'      => 6,
                 'post_status'         => 'publish',
                 'ignore_sticky_posts' => 1
-            ) );
+            );
+            if ( $nails_cat && $nails_cat->count > 0 ) {
+                $nail_args['cat'] = $nails_cat->term_id;
+            } elseif ( $nails_cat ) {
+                $nail_args['category_name'] = $nails_cat->slug;
+            } else {
+                $nail_args['category_name'] = 'nails';
+            }
+            $nails_wp_query = new WP_Query( $nail_args );
 
             $rendered_count = 0;
             if ( $nails_wp_query->have_posts() ) {
