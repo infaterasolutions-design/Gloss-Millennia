@@ -1878,7 +1878,10 @@ a:hover .gm-card-title {
         <div class="gm-nail-edit-grid">
             <!-- 1. Left Feature Text Box (Spans 2 rows on desktop) -->
             <?php
-            $nails_cat = gm_find_category( array( 'nails', 'nail-art' ), array( 'Nails', 'Nail Art' ) );
+            $nails_cat = gm_find_category( 
+                array( 'nails', 'nail', 'nail-art', 'nail-edit', 'the-months-nail-edit', 'nail-inspo' ), 
+                array( 'Nails', 'Nail', 'Nail Art', 'Nail Edit', "The Month's Nail Edit", "The Month’s Nail Edit", 'Nail Inspo' ) 
+            );
             $nails_cat_link = $nails_cat ? get_category_link( $nails_cat->term_id ) : home_url( '/category/nails/' );
             ?>
             <div class="gm-nail-edit-intro">
@@ -1922,31 +1925,44 @@ a:hover .gm-card-title {
                 ),
             );
 
-            // Check if WordPress posts in 'nails' category exist with featured images
+            // Query posts for Nail Edit - prioritize posts in nails category, or posts with featured images
             $nail_args = array(
                 'posts_per_page'      => 6,
                 'post_status'         => 'publish',
-                'ignore_sticky_posts' => 1
+                'ignore_sticky_posts' => 1,
             );
             if ( $nails_cat && $nails_cat->count > 0 ) {
                 $nail_args['cat'] = $nails_cat->term_id;
-            } elseif ( $nails_cat ) {
-                $nail_args['category_name'] = $nails_cat->slug;
             } else {
-                $nail_args['category_name'] = 'nails';
+                $nail_args['meta_query'] = array(
+                    array(
+                        'key'     => '_thumbnail_id',
+                        'compare' => 'EXISTS',
+                    ),
+                );
             }
             $nails_wp_query = new WP_Query( $nail_args );
+
+            if ( ! $nails_wp_query->have_posts() ) {
+                $nails_wp_query = new WP_Query( array(
+                    'posts_per_page'      => 6,
+                    'post_status'         => 'publish',
+                    'ignore_sticky_posts' => 1,
+                ) );
+            }
 
             $rendered_count = 0;
             if ( $nails_wp_query->have_posts() ) {
                 while ( $nails_wp_query->have_posts() ) {
                     $nails_wp_query->the_post();
-                    $has_thumb = has_post_thumbnail();
-                    $img_src = $has_thumb ? get_the_post_thumbnail_url( get_the_ID(), 'medium_large' ) : $curated_nails[ $rendered_count % count( $curated_nails ) ]['img'];
                     ?>
                     <a href="<?php the_permalink(); ?>" class="gm-nail-card" aria-label="<?php the_title_attribute(); ?>">
                         <div class="gm-nail-img-wrap">
-                            <img src="<?php echo esc_url( $img_src ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy" />
+                            <?php if ( has_post_thumbnail() ) : ?>
+                                <?php the_post_thumbnail( 'large', array( 'loading' => 'lazy', 'alt' => the_title_attribute( array( 'echo' => false ) ) ) ); ?>
+                            <?php else : ?>
+                                <img src="<?php echo esc_url( $curated_nails[ $rendered_count % count( $curated_nails ) ]['img'] ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy" />
+                            <?php endif; ?>
                         </div>
                     </a>
                     <?php
