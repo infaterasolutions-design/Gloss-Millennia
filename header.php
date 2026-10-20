@@ -97,6 +97,19 @@ body, html {
 
 /* Default State (2 rows) */
 .header-logo { grid-area: logo; display: flex; align-items: center; }
+.site-logo { display: flex; align-items: center; }
+.site-logo img.custom-logo,
+.site-logo img {
+	max-height: 48px;
+	width: auto;
+	display: block;
+	object-fit: contain;
+	transition: max-height 0.3s ease;
+}
+.header-main.is-scrolled .site-logo img.custom-logo,
+.header-main.is-scrolled .site-logo img {
+	max-height: 38px;
+}
 .header-actions { grid-area: actions; display: flex; align-items: center; justify-content: flex-end; gap: 30px; }
 
 .header-menu { grid-area: menu; }
@@ -203,7 +216,7 @@ body, html {
 	.header-logo,
 	.header-main.is-scrolled .header-logo { margin-right: 0 !important; }
     
-    .site-logo img.custom-logo { max-height: 35px !important; width: auto !important; }
+    .site-logo img.custom-logo, .site-logo img { max-height: 35px !important; width: auto !important; }
     .header-logo-tcc { font-size: 1.5rem !important; }
     .header-logo-text { font-size: 0.9rem !important; }
 }
@@ -222,10 +235,11 @@ body, html {
 						<?php the_custom_logo(); ?>
 					</div>
 				<?php else : ?>
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center header-logo-link" style="gap: 0.5rem; text-decoration: none;">
-						<span class="text-script header-logo-tcc" style="font-size: 2.5rem; color: #b0afa9; line-height: 1;">gm</span>
-						<span class="text-serif header-logo-text" style="font-size: 1.5rem; font-weight: bold; letter-spacing: -0.5px; color: #000;">gloss millennia</span>
-					</a>
+					<div class="site-logo flex items-center">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home">
+							<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="custom-logo" />
+						</a>
+					</div>
 				<?php endif; ?>
 			</div>
 

@@ -25,10 +25,11 @@
 						<?php the_custom_logo(); ?>
 					</div>
 				<?php else : ?>
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center header-logo-link" style="gap: 0.5rem; text-decoration: none; margin-bottom: 15px;">
-						<span class="text-script header-logo-tcc" style="font-size: 2.5rem; color: #b0afa9; line-height: 1;">gm</span>
-						<span class="text-serif header-logo-text" style="font-size: 1.5rem; font-weight: bold; letter-spacing: -0.5px; color: #000;">gloss millennia</span>
-					</a>
+					<div class="site-logo flex items-center" style="margin-bottom: 15px;">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home">
+							<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="custom-logo" style="max-height: 45px; width: auto; object-fit: contain;" />
+						</a>
+					</div>
 				<?php endif; ?>
 			</div>
 			<div class="figma-footer-social">

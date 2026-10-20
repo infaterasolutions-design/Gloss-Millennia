@@ -54,6 +54,20 @@ function tcc_theme_setup() {
     
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'custom-logo', array( 'height' => 100, 'width' => 400, 'flex-height' => true, 'flex-width' => true ) );
+
+	// Default fallback to theme logo image if no custom logo set in customizer
+	add_filter( 'get_custom_logo', function( $html ) {
+		if ( empty( $html ) ) {
+			$logo_url = get_template_directory_uri() . '/assets/images/logo.png';
+			$html = sprintf(
+				'<a href="%1$s" class="custom-logo-link" rel="home"><img src="%2$s" class="custom-logo" alt="%3$s" decoding="async" /></a>',
+				esc_url( home_url( '/' ) ),
+				esc_url( $logo_url ),
+				esc_attr( get_bloginfo( 'name' ) )
+			);
+		}
+		return $html;
+	} );
 	add_theme_support( 'post-thumbnails' );
 
 	register_nav_menus(
