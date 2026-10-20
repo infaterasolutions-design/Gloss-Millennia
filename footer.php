@@ -1,5 +1,259 @@
 </div> <!-- .site-wrapper -->
 
+<!-- Google Fonts (Playfair Display & Inter) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* Section Base */
+.figma-ig-section {
+    width: 100%;
+    position: relative;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.figma-ig-section * {
+    box-sizing: border-box;
+}
+
+/* Header Container */
+.figma-ig-header {
+    background: #F4F1EC; /* Warm neutral cream tone */
+    padding: 50px 20px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Subtitle */
+.figma-ig-subtitle {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+/* Title */
+.figma-ig-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 60px;
+    font-weight: 400;
+    color: #000000;
+    margin: 0 0 15px 0;
+    line-height: 1.05;
+}
+
+/* Description */
+.figma-ig-desc {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    color: #000000;
+    margin: 0 0 30px 0;
+}
+
+/* Buttons Container */
+.figma-ig-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Action Buttons */
+.figma-ig-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 38px;
+    background: #020202;
+    color: #FFFFFF !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.figma-ig-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+    color: #FFFFFF !important;
+}
+
+/* Feed Grid Container */
+.figma-ig-grid {
+    display: block;
+    width: 100%;
+    border-top: 1px solid #000000;
+    overflow: hidden;
+}
+
+/* Smash Balloon CSS Grid Overrides (Seamless 6-column layout) */
+#sb_instagram {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+#sb_instagram #sbi_images {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 1px !important;
+    background-color: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+#sb_instagram .sbi_item {
+    position: relative !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex: 1 1 16.666% !important;
+    max-width: 16.666% !important;
+    border: none !important;
+    overflow: hidden !important;
+}
+
+#sb_instagram .sbi_photo_wrap,
+#sb_instagram .sbi_photo {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+}
+
+#sb_instagram .sbi_item img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    transition: transform 0.5s ease !important;
+}
+
+#sb_instagram .sbi_item:hover img {
+    transform: scale(1.05) !important;
+}
+
+#sb_instagram .sbi_load_btn,
+#sb_instagram .sbi_follow_btn,
+#sb_instagram .sbi_header {
+    display: none !important;
+}
+
+/* Play Button Styling & Centering for Videos/Reels */
+#sb_instagram .sbi_playbtn {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    padding: 0 !important;
+    z-index: 10 !important;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25)) !important;
+    pointer-events: none;
+}
+
+#sb_instagram .sbi_playbtn svg {
+    width: 100% !important;
+    height: 100% !important;
+    fill: #ffffff !important;
+    margin: 0 !important;
+}
+
+/* Mobile Responsiveness (Horizontal Touch Slider) */
+@media (max-width: 1024px) {
+    #sb_instagram #sbi_images {
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+    }
+    #sb_instagram #sbi_images::-webkit-scrollbar {
+        display: none !important;
+    }
+    #sb_instagram .sbi_item {
+        flex: 0 0 30% !important;
+        max-width: 30% !important;
+        scroll-snap-align: start !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .figma-ig-header {
+        padding: 40px 20px !important;
+    }
+    .figma-ig-title {
+        font-size: 38px !important;
+    }
+    #sb_instagram .sbi_item {
+        flex: 0 0 25% !important; /* 4 visible on mobile */
+        max-width: 25% !important;
+    }
+    #sb_instagram .sbi_playbtn {
+        width: 24px !important;
+        height: 24px !important;
+    }
+}
+</style>
+
+<section class="figma-ig-section">
+    <div class="figma-ig-header">
+        <div class="figma-ig-subtitle">SOCIAL</div>
+        <h2 class="figma-ig-title">On Instagram</h2>
+        <p class="figma-ig-desc">Everyday Outfits and Style Inspiration</p>
+        <div class="figma-ig-buttons">
+            <a href="<?php echo esc_url( home_url( '/category/shopping/' ) ); ?>" class="figma-ig-btn">SHOP DAILY LOOKS HERE</a>
+            <a href="https://www.instagram.com/thecombocloset/" target="_blank" rel="noopener noreferrer" class="figma-ig-btn">FOLLOW ON INSTAGRAM</a>
+        </div>
+    </div>
+
+    <div class="figma-ig-grid plugin-container">
+        <?php 
+        $ig_feed = do_shortcode('[instagram-feed num=6 cols=6 disablemobile=true showheader=false showbutton=false showfollow=false showcaption=false]'); 
+        if ( ! empty( $ig_feed ) && strpos( $ig_feed, '[instagram-feed' ) === false ) {
+            echo $ig_feed;
+        } else {
+            ?>
+            <div id="sb_instagram" class="sbi sbi_col_6">
+                <div id="sbi_images">
+                    <div class="sbi_item"><div class="sbi_photo_wrap"><a href="https://www.instagram.com/thecombocloset/" target="_blank" rel="noopener noreferrer" class="sbi_photo"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600" alt="Instagram Post" /></a></div></div>
+                    <div class="sbi_item"><div class="sbi_photo_wrap"><a href="https://www.instagram.com/thecombocloset/" target="_blank" rel="noopener noreferrer" class="sbi_photo"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&q=80&w=600" alt="Instagram Post" /></a></div></div>
+                    <div class="sbi_item"><div class="sbi_photo_wrap"><a href="https://www.instagram.com/thecombocloset/" target="_blank" rel="noopener noreferrer" class="sbi_photo"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=600" alt="Instagram Post" /></a></div></div>
+                    <div class="sbi_item"><div class="sbi_photo_wrap"><a href="https://www.instagram.com/thecombocloset/" target="_blank" rel="noopener noreferrer" class="sbi_photo"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=600" alt="Instagram Post" /></a></div></div>
+                    <div class="sbi_item"><div class="sbi_photo_wrap"><a href="https://www.instagram.com/thecombocloset/" target="_blank" rel="noopener noreferrer" class="sbi_photo"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=600" alt="Instagram Post" /></a></div></div>
+                    <div class="sbi_item"><div class="sbi_photo_wrap"><a href="https://www.instagram.com/thecombocloset/" target="_blank" rel="noopener noreferrer" class="sbi_photo"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Instagram Post" /></a></div></div>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+    </div>
+</section>
+
 <footer id="tcc-footer" class="site-footer figma-footer">
 	<div class="figma-footer-main">
 		
