@@ -238,35 +238,108 @@ function tcc_customize_register( $wp_customize ) {
         'priority' => 30,
     ) );
 
-    $wp_customize->add_setting( 'tcc_hero_heading', array(
-        'default'           => 'Welcome to Minimalist Sophistication with Maximum Style',
+    // 1. Manual Post Selection (Choose specific post manually, no category query)
+    $posts_options = array(
+        '0' => __( '-- Select a Post Manually --', 'tcc' ),
+    );
+    $all_posts = get_posts( array(
+        'numberposts' => 60,
+        'post_status' => 'publish',
+        'orderby'     => 'date',
+        'order'       => 'DESC',
+    ) );
+    if ( ! empty( $all_posts ) ) {
+        foreach ( $all_posts as $p ) {
+            $posts_options[ $p->ID ] = esc_html( wp_trim_words( $p->post_title, 8 ) . ' (ID: ' . $p->ID . ')' );
+        }
+    }
+
+    $wp_customize->add_setting( 'tcc_hero_manual_post', array(
+        'default'           => '0',
+        'sanitize_callback' => 'absint',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_manual_post', array(
+        'label'       => __( 'Select Hero Post (Manual)', 'tcc' ),
+        'description' => __( 'Choose a specific post manually. Does not query any category.', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'type'        => 'select',
+        'choices'     => $posts_options,
+    ) );
+
+    $wp_customize->add_setting( 'tcc_hero_manual_post_id', array(
+        'default'           => '',
         'sanitize_callback' => 'sanitize_text_field',
     ) );
-    $wp_customize->add_control( 'tcc_hero_heading', array(
-        'label'   => __( 'Hero Heading', 'tcc' ),
-        'section' => 'tcc_hero_section',
-        'type'    => 'text',
+    $wp_customize->add_control( 'tcc_hero_manual_post_id', array(
+        'label'       => __( 'Or Enter Post ID Directly', 'tcc' ),
+        'description' => __( 'Enter a post ID directly if not found in the dropdown above.', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'type'        => 'text',
     ) );
 
-    $wp_customize->add_setting( 'tcc_hero_text', array(
-        'default'           => 'The Combo Closet is an inspired style, home, and beauty destination for those who prefer quality over quantity, subtle over obvious, and ease over complexity.',
-        'sanitize_callback' => 'wp_kses_post',
-    ) );
-    $wp_customize->add_control( 'tcc_hero_text', array(
-        'label'   => __( 'Hero Text', 'tcc' ),
-        'section' => 'tcc_hero_section',
-        'type'    => 'textarea',
-    ) );
-
-    $wp_customize->add_setting( 'tcc_hero_image', array(
-        'default'           => 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600',
+    // 2. Customized Hero Image & Ratio (Does not show featured image!)
+    $wp_customize->add_setting( 'tcc_hero_custom_image', array(
+        'default'           => '',
         'sanitize_callback' => 'esc_url_raw',
     ) );
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'tcc_hero_image', array(
-        'label'    => __( 'Hero Image', 'tcc' ),
-        'section'  => 'tcc_hero_section',
-        'settings' => 'tcc_hero_image',
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'tcc_hero_custom_image', array(
+        'label'       => __( 'Custom Hero Image', 'tcc' ),
+        'description' => __( 'Upload the tailored image for this post. Standard featured image will NOT be used.', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'settings'    => 'tcc_hero_custom_image',
     ) ) );
+
+    $wp_customize->add_setting( 'tcc_hero_image_ratio', array(
+        'default'           => '16-9',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_image_ratio', array(
+        'label'       => __( 'Hero Image Aspect Ratio', 'tcc' ),
+        'description' => __( 'Select the ratio that best frames your customized image.', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'type'        => 'select',
+        'choices'     => array(
+            '16-9'    => __( '16:9 (Standard Widescreen 1.78:1)', 'tcc' ),
+            '21-9'    => __( '21:9 (Cinematic Ultra-Wide 2.33:1)', 'tcc' ),
+            '27-10'   => __( '2.7:1 (Panoramic Banner / Corkboard Ratio)', 'tcc' ),
+            '3-2'     => __( '3:2 (Classic Landscape 1.5:1)', 'tcc' ),
+            'auto'    => __( 'Fixed Height (440px desktop, auto cover)', 'tcc' ),
+        ),
+    ) );
+
+    // 3. Optional Overrides
+    $wp_customize->add_setting( 'tcc_hero_custom_title', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_custom_title', array(
+        'label'       => __( 'Hero Title Override (Optional)', 'tcc' ),
+        'description' => __( 'Leave blank to use the selected post title.', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'type'        => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'tcc_hero_custom_category', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_custom_category', array(
+        'label'       => __( 'Hero Category Tag Override (Optional)', 'tcc' ),
+        'description' => __( 'Leave blank to use the post category.', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'type'        => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'tcc_hero_custom_excerpt', array(
+        'default'           => '',
+        'sanitize_callback' => 'wp_kses_post',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_custom_excerpt', array(
+        'label'       => __( 'Hero Excerpt Override (Optional)', 'tcc' ),
+        'description' => __( 'Leave blank to use the post excerpt.', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'type'        => 'textarea',
+    ) );
 
     // Hero Portrait Video & Glossy Card Controls
     $wp_customize->add_setting( 'tcc_hero_video_url', array(

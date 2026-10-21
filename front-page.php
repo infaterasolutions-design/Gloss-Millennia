@@ -194,10 +194,34 @@ a:hover .gm-card-title {
 
 .gm-hero-image-wrap {
     width: 100%;
-    height: 440px;
     background: #EFEFEF;
     overflow: hidden;
     position: relative;
+}
+
+/* Aspect ratio options for customized hero image */
+.gm-hero-image-wrap.ratio-16-9 {
+    aspect-ratio: 16 / 9;
+    max-height: 480px;
+}
+
+.gm-hero-image-wrap.ratio-21-9 {
+    aspect-ratio: 21 / 9;
+    max-height: 440px;
+}
+
+.gm-hero-image-wrap.ratio-27-10 {
+    aspect-ratio: 781 / 285;
+    max-height: 440px;
+}
+
+.gm-hero-image-wrap.ratio-3-2 {
+    aspect-ratio: 3 / 2;
+    max-height: 520px;
+}
+
+.gm-hero-image-wrap.ratio-auto {
+    height: 440px;
 }
 
 .gm-hero-image-wrap img {
@@ -1046,8 +1070,14 @@ body.has-floating-hero-video #tcc-floating-to-top {
         flex-direction: column;
         margin-bottom: 50px;
     }
-    .gm-hero-image-wrap {
-        height: 320px;
+    .gm-hero-image-wrap,
+    .gm-hero-image-wrap.ratio-16-9,
+    .gm-hero-image-wrap.ratio-21-9,
+    .gm-hero-image-wrap.ratio-27-10,
+    .gm-hero-image-wrap.ratio-3-2,
+    .gm-hero-image-wrap.ratio-auto {
+        aspect-ratio: auto !important;
+        height: 320px !important;
     }
     .gm-hero-overlay-card {
         position: relative;
@@ -1413,56 +1443,82 @@ body.has-floating-hero-video #tcc-floating-to-top {
         }
     }
 
-    // Fetch latest post for hero if available
-    $hero_query = new WP_Query( array(
-        'posts_per_page' => 1,
-        'post_status'    => 'publish',
-        'ignore_sticky_posts' => 1
-    ) );
-
-    $hero_has_post = $hero_query->have_posts();
-    $hero_post_id  = 0;
-    if ( $hero_has_post ) {
-        $hero_query->the_post();
-        $hero_post_id = get_the_ID();
+    // 1. Manual Post Selection (Does not query by category)
+    $manual_post_id = absint( get_theme_mod( 'tcc_hero_manual_post_id', '' ) );
+    if ( ! $manual_post_id ) {
+        $manual_post_id = absint( get_theme_mod( 'tcc_hero_manual_post', 0 ) );
     }
+
+    $hero_post = null;
+    if ( $manual_post_id > 0 ) {
+        $hero_post = get_post( $manual_post_id );
+        if ( ! $hero_post || $hero_post->post_status !== 'publish' ) {
+            $hero_post = null;
+        }
+    }
+
+    // If no manual post specified, fallback to latest published post
+    if ( ! $hero_post ) {
+        $latest_posts = get_posts( array(
+            'numberposts'         => 1,
+            'post_status'         => 'publish',
+            'ignore_sticky_posts' => 1,
+        ) );
+        if ( ! empty( $latest_posts ) ) {
+            $hero_post = $latest_posts[0];
+        }
+    }
+
+    // 2. Extract post details or defaults
+    if ( $hero_post ) {
+        $hero_title     = get_the_title( $hero_post );
+        $hero_link      = get_permalink( $hero_post );
+        $hero_excerpt   = has_excerpt( $hero_post ) ? get_the_excerpt( $hero_post ) : wp_trim_words( $hero_post->post_content, 22 );
+        $cats           = get_the_category( $hero_post->ID );
+        $hero_cat_name  = ! empty( $cats ) ? $cats[0]->name : 'Product & Brand News';
+    } else {
+        $hero_title     = 'Can You Launch a Beauty Product Without Controversy?';
+        $hero_link      = home_url( '/category/trends-innovation/' );
+        $hero_excerpt   = 'In the endless sea of launches, it feels like drama is the only way to break through the noise. But is it worth it?';
+        $hero_cat_name  = 'Product & Brand News';
+    }
+
+    // Overrides from Customizer (if provided)
+    $custom_title = get_theme_mod( 'tcc_hero_custom_title', '' );
+    if ( ! empty( $custom_title ) ) {
+        $hero_title = $custom_title;
+    }
+    $custom_cat = get_theme_mod( 'tcc_hero_custom_category', '' );
+    if ( ! empty( $custom_cat ) ) {
+        $hero_cat_name = $custom_cat;
+    }
+    $custom_excerpt = get_theme_mod( 'tcc_hero_custom_excerpt', '' );
+    if ( ! empty( $custom_excerpt ) ) {
+        $hero_excerpt = $custom_excerpt;
+    }
+
+    // 3. Custom Hero Image (DO NOT use standard featured image!)
+    $hero_custom_img = get_theme_mod( 'tcc_hero_custom_image', '' );
+    if ( empty( $hero_custom_img ) ) {
+        $hero_custom_img = get_template_directory_uri() . '/assets/images/hero-corkboard.png';
+    }
+
+    // 4. Aspect Ratio Class
+    $ratio_setting = get_theme_mod( 'tcc_hero_image_ratio', '16-9' );
+    $ratio_class   = 'ratio-' . esc_attr( $ratio_setting );
     ?>
     <section class="gm-hero-section">
-        <!-- Left: Main Featured Article -->
-        <a href="<?php echo $hero_has_post ? esc_url( get_permalink() ) : '#'; ?>" class="gm-hero-main">
-            <div class="gm-hero-image-wrap">
-                <?php if ( $hero_has_post && has_post_thumbnail() ) : ?>
-                    <?php the_post_thumbnail( 'full' ); ?>
-                <?php else : ?>
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hero-corkboard.png' ); ?>" alt="Beauty Product Feature" />
-                <?php endif; ?>
+        <!-- Left: Main Featured Article (Manual Post + Customized Image) -->
+        <a href="<?php echo esc_url( $hero_link ); ?>" class="gm-hero-main">
+            <div class="gm-hero-image-wrap <?php echo esc_attr( $ratio_class ); ?>">
+                <img src="<?php echo esc_url( $hero_custom_img ); ?>" alt="<?php echo esc_attr( $hero_title ); ?>" />
             </div>
             <div class="gm-hero-overlay-card">
-                <span class="gm-category-tag">
-                    <?php 
-                    if ( $hero_has_post ) {
-                        $cats = get_the_category();
-                        echo ! empty( $cats ) ? esc_html( $cats[0]->name ) : 'Product & Brand News';
-                    } else {
-                        echo 'Product & Brand News';
-                    }
-                    ?>
-                </span>
-                <h1 class="gm-hero-overlay-title">
-                    <?php echo $hero_has_post ? esc_html( get_the_title() ) : 'Can You Launch a Beauty Product Without Controversy?'; ?>
-                </h1>
-                <p class="gm-hero-overlay-excerpt">
-                    <?php 
-                    if ( $hero_has_post && has_excerpt() ) {
-                        echo esc_html( get_the_excerpt() );
-                    } else {
-                        echo 'In the endless sea of launches, it feels like drama is the only way to break through the noise. But is it worth it?';
-                    }
-                    ?>
-                </p>
+                <span class="gm-category-tag"><?php echo esc_html( $hero_cat_name ); ?></span>
+                <h1 class="gm-hero-overlay-title"><?php echo esc_html( $hero_title ); ?></h1>
+                <p class="gm-hero-overlay-excerpt"><?php echo esc_html( $hero_excerpt ); ?></p>
             </div>
         </a>
-        <?php wp_reset_postdata(); ?>
 
                 <!-- Right: Video Player / Portrait Story Card -->
         <?php
