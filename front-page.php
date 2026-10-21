@@ -262,6 +262,7 @@ a:hover .gm-card-title {
     max-width: 245px;
     display: flex;
     justify-content: center;
+    min-height: 350px;
 }
 
 .gm-hero-video-card {
@@ -438,6 +439,152 @@ a:hover .gm-card-title {
     color: #ffffff;
     line-height: 1.1;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+/* ==========================================================================
+   Floating Picture-in-Picture Mini-Player Card (Scroll to Bottom-Right)
+   ========================================================================== */
+.gm-hero-video-card.is-floating {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    width: 165px !important;
+    z-index: 1005 !important;
+    margin: 0 !important;
+    animation: gmFloatSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes gmFloatSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(35px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Shrunk Offset Black Backdrop Card in Floating Mode */
+.gm-hero-video-card.is-floating .gm-hero-card-backdrop {
+    top: 10px !important;
+    right: -10px !important;
+    bottom: -38px !important;
+    left: 24px !important;
+    padding-bottom: 10px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.gm-hero-video-card.is-floating .gm-hero-card-brand {
+    font-size: 11px !important;
+    letter-spacing: 0.3em !important;
+    text-indent: 0.3em !important;
+}
+
+/* Shrunk Video Frame in Floating Mode */
+.gm-hero-video-card.is-floating .gm-hero-video-frame {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Shrunk Video Overlay Typography */
+.gm-hero-video-card.is-floating .gm-hero-video-text-overlay {
+    bottom: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+}
+
+.gm-hero-video-card.is-floating .gm-hero-video-subtitle {
+    font-size: 10px !important;
+    margin-bottom: 1px !important;
+}
+
+.gm-hero-video-card.is-floating .gm-hero-video-title {
+    font-size: 22px !important;
+}
+
+/* Shrunk Sound Button */
+.gm-hero-video-card.is-floating .gm-hero-sound-toggle {
+    width: 24px !important;
+    height: 24px !important;
+    top: 6px !important;
+    right: 6px !important;
+}
+
+.gm-hero-video-card.is-floating .gm-hero-sound-toggle svg {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* Floating Dismiss Close Button */
+.gm-hero-video-close {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #000000;
+    color: #ffffff;
+    border: 1.5px solid #ffffff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    padding: 0;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gm-hero-video-card.is-floating .gm-hero-video-close {
+    display: flex;
+}
+
+.gm-hero-video-close:hover {
+    transform: scale(1.15);
+    background: #222222;
+}
+
+.gm-hero-video-close svg {
+    width: 11px;
+    height: 11px;
+    fill: currentColor;
+    display: block;
+}
+
+/* Shift back-to-top button up when floating hero video is active */
+body.has-floating-hero-video #tcc-floating-to-top {
+    bottom: 280px !important;
+    transition: bottom 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .gm-hero-video-card.is-floating {
+        bottom: 18px !important;
+        right: 16px !important;
+        width: 135px !important;
+    }
+    .gm-hero-video-card.is-floating .gm-hero-card-backdrop {
+        top: 8px !important;
+        right: -8px !important;
+        bottom: -32px !important;
+        left: 20px !important;
+        padding-bottom: 8px !important;
+    }
+    .gm-hero-video-card.is-floating .gm-hero-card-brand {
+        font-size: 9.5px !important;
+        letter-spacing: 0.26em !important;
+        text-indent: 0.26em !important;
+    }
+    .gm-hero-video-card.is-floating .gm-hero-video-title {
+        font-size: 18px !important;
+    }
+    .gm-hero-video-card.is-floating .gm-hero-video-subtitle {
+        font-size: 9px !important;
+    }
+    body.has-floating-hero-video #tcc-floating-to-top {
+        bottom: 240px !important;
+    }
 }
 
 /* ==========================================================================
@@ -1432,8 +1579,13 @@ a:hover .gm-card-title {
         }
         ?>
         <div class="gm-hero-side">
-            <div class="gm-hero-video-card-container">
-                <div class="gm-hero-video-card">
+            <div class="gm-hero-video-card-container" id="gmHeroCardContainer">
+                <div class="gm-hero-video-card" id="gmHeroVideoCard">
+                    <!-- Floating Dismiss Close Button -->
+                    <button type="button" class="gm-hero-video-close" id="gmHeroVideoClose" aria-label="Close Floating Video" title="Close Floating Video">
+                        <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+
                     <!-- Offset Black Backdrop with GLOSSY Brand Badge -->
                     <a href="<?php echo esc_url( $hero_video_link ); ?>" class="gm-hero-card-backdrop" aria-label="<?php echo esc_attr( $hero_video_brand ); ?>">
                         <span class="gm-hero-card-brand"><?php echo esc_html( $hero_video_brand ); ?></span>
@@ -2216,6 +2368,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var video = document.getElementById('gmHeroPortraitVideo');
     var soundBtn = document.getElementById('gmHeroSoundToggle');
     var playIndicator = document.getElementById('gmHeroPlayIndicator');
+    var card = document.getElementById('gmHeroVideoCard');
+    var container = document.getElementById('gmHeroCardContainer');
+    var closeBtn = document.getElementById('gmHeroVideoClose');
 
     if (video && soundBtn) {
         var mutedIcon = soundBtn.querySelector('.gm-sound-icon-muted');
@@ -2248,6 +2403,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+    }
+
+    // Floating Picture-in-Picture on scroll
+    if (card && container) {
+        var isDismissed = false;
+
+        function updateFloatingState() {
+            var rect = container.getBoundingClientRect();
+            // When the hero container bottom is scrolled above 40px from top
+            var shouldFloat = rect.bottom < 40;
+
+            // Reset dismissal when user scrolls back into hero
+            if (rect.bottom >= 120) {
+                isDismissed = false;
+            }
+
+            if (shouldFloat && !isDismissed) {
+                if (!card.classList.contains('is-floating')) {
+                    card.classList.add('is-floating');
+                    document.body.classList.add('has-floating-hero-video');
+                }
+            } else {
+                if (card.classList.contains('is-floating')) {
+                    card.classList.remove('is-floating');
+                    document.body.classList.remove('has-floating-hero-video');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateFloatingState, { passive: true });
+        window.addEventListener('resize', updateFloatingState, { passive: true });
+        updateFloatingState();
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                isDismissed = true;
+                card.classList.remove('is-floating');
+                document.body.classList.remove('has-floating-hero-video');
+            });
+        }
     }
 });
 </script>
