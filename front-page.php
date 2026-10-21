@@ -936,16 +936,24 @@ body.has-floating-hero-video #tcc-floating-to-top {
 }
 
 /* ==========================================================================
-   6. NAILS SECTION - THE MONTH'S NAIL EDIT (Figma Editorial Grid)
+   6. NAILS SECTION - THE MONTH'S NAIL EDIT (Full Width Screen Layout)
    ========================================================================== */
 .gm-nails-section {
-    margin-bottom: 80px;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 90px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .gm-nail-edit-grid {
     display: grid;
-    grid-template-columns: 1.35fr 1fr 1fr 1fr;
-    grid-template-rows: repeat(2, 275px);
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(2, clamp(280px, 22vw, 380px));
     width: 100%;
     gap: 4px;
     background: #ffffff;
@@ -954,7 +962,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
 .gm-nail-edit-intro {
     grid-row: span 2;
     background: #ECE7E6;
-    padding: 44px 38px;
+    padding: clamp(40px, 4vw, 64px) clamp(32px, 3.5vw, 56px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2198,7 +2206,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
     <!-- =====================================================================
          6. NAILS SECTION - THE MONTH'S NAIL EDIT (Figma Editorial Grid)
          ===================================================================== -->
-    <section class="gm-nails-section container">
+    <section class="gm-nails-section gm-nails-section-fullwidth">
         <div class="gm-nail-edit-grid">
             <!-- 1. Left Feature Text Box (Spans 2 rows on desktop) -->
             <?php
