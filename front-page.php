@@ -252,78 +252,58 @@ a:hover .gm-card-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px 30px 65px 20px;
+    padding: 24px 32px;
     box-sizing: border-box;
     background: #FAF9F6;
 }
 
-.gm-hero-video-card-container {
-    width: 100%;
-    max-width: 245px;
-    display: flex;
-    justify-content: center;
-    min-height: 350px;
-}
-
-.gm-hero-video-card {
+.gm-hero-portrait-card-wrap {
     position: relative;
     width: 100%;
-    margin: 0;
+    max-width: 240px;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
 }
 
-/* Offset Solid Black Backdrop Card */
-.gm-hero-card-backdrop {
+.gm-hero-portrait-card-wrap:hover {
+    transform: translateY(-3px);
+}
+
+/* Offset black accent sticking out top-right and right edge */
+.gm-hero-card-accent {
     position: absolute;
-    top: 14px;
-    right: -14px;
-    bottom: -54px;
-    left: 36px;
+    top: 12px;
+    right: -12px;
+    bottom: 0;
+    width: 100%;
     background: #000000;
     z-index: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 16px;
-    text-decoration: none;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    pointer-events: none;
 }
 
-.gm-hero-card-brand {
-    color: #ffffff;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    line-height: 1;
-    text-indent: 0.32em;
-    user-select: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.gm-hero-card-backdrop:hover .gm-hero-card-brand {
-    opacity: 0.85;
-}
-
-/* Video / Media Player Frame */
-.gm-hero-video-frame {
+/* Video Slot (Maintains exact space in card when video floats) */
+.gm-hero-video-slot {
     position: relative;
     z-index: 2;
     width: 100%;
     aspect-ratio: 304 / 363;
-    background: #111111;
+    background: #000000;
+    overflow: visible;
+}
+
+/* Video Player in Hero */
+.gm-hero-floating-player {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 304 / 363;
     overflow: hidden;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #111111;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-.gm-hero-video-card:hover .gm-hero-video-frame {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
-}
-
-.gm-hero-portrait-video {
+.gm-hero-video-tag {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -331,28 +311,16 @@ a:hover .gm-card-title {
     cursor: pointer;
 }
 
-/* Dark Vignette / Gradient Overlay */
-.gm-hero-video-gradient {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 48%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.25) 60%, transparent 100%);
-    pointer-events: none;
-    z-index: 2;
-}
-
 /* Sound Toggle Button */
 .gm-hero-sound-toggle {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 8px;
+    right: 8px;
     z-index: 5;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -367,97 +335,117 @@ a:hover .gm-card-title {
 
 .gm-hero-sound-toggle:hover {
     background: rgba(0, 0, 0, 0.85);
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .gm-hero-sound-toggle svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     fill: currentColor;
     display: block;
 }
 
-/* Play/Pause Pulse Indicator */
-.gm-hero-play-indicator {
+/* Floating Close Button (hidden in hero, visible only when floating) */
+.gm-hero-floating-close {
+    display: none;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    width: 48px;
-    height: 48px;
+    top: 6px;
+    left: 6px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 6;
+    padding: 0;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gm-hero-floating-close:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.gm-hero-floating-close svg {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+    display: block;
+}
+
+/* Bottom Black Bar with GLOSSY (STAYS PERMANENTLY IN HERO) */
+.gm-hero-card-brand-bar {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 4;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.gm-hero-play-indicator.is-visible {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-/* Editorial Typography Overlay (Bottom-Left) */
-.gm-hero-video-text-overlay {
-    position: absolute;
-    bottom: 14px;
-    left: 14px;
-    right: 14px;
-    z-index: 3;
+    height: 52px;
+    background: #000000;
+    margin-left: 28px;
+    margin-right: -12px;
     text-decoration: none;
-    color: #ffffff !important;
-    text-align: left;
-    display: block;
-    transition: transform 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
-.gm-hero-video-text-overlay:hover {
-    transform: translateY(-1px);
+.gm-hero-card-brand-bar:hover {
+    opacity: 0.9;
 }
 
-.gm-hero-video-subtitle {
-    display: block;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-style: italic;
-    font-size: 13.5px;
-    font-weight: 400;
+.gm-hero-brand-text {
     color: #ffffff;
-    line-height: 1.25;
-    margin-bottom: 2px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-}
-
-.gm-hero-video-title {
-    display: block;
-    font-family: 'Great Vibes', 'Allura', 'Sacramento', cursive;
-    font-size: 32px;
-    font-weight: 400;
-    color: #ffffff;
-    line-height: 1.1;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    text-indent: 0.32em;
+    line-height: 1;
+    user-select: none;
 }
 
 /* ==========================================================================
-   Floating Picture-in-Picture Mini-Player Card (Scroll to Bottom-Right)
+   FLOATING VIDEO PLAYER ONLY (Scroll to Bottom-Right Corner)
+   Note: The black background frame and GLOSSY text remain in the hero!
    ========================================================================== */
-.gm-hero-video-card.is-floating {
+.gm-hero-floating-player.is-floating {
     position: fixed !important;
     bottom: 24px !important;
     right: 24px !important;
-    width: 165px !important;
+    width: 160px !important;
+    aspect-ratio: 304 / 363 !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
     z-index: 1005 !important;
-    margin: 0 !important;
-    animation: gmFloatSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45) !important;
+    animation: gmFloatSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.gm-hero-floating-player.is-floating .gm-hero-floating-close {
+    display: flex !important;
+}
+
+.gm-hero-floating-player.is-floating .gm-hero-sound-toggle {
+    width: 24px !important;
+    height: 24px !important;
+    top: 6px !important;
+    right: 6px !important;
+}
+
+.gm-hero-floating-player.is-floating .gm-hero-sound-toggle svg {
+    width: 12px !important;
+    height: 12px !important;
 }
 
 @keyframes gmFloatSlideIn {
     0% {
         opacity: 0;
-        transform: translateY(35px) scale(0.9);
+        transform: translateY(30px) scale(0.92);
     }
     100% {
         opacity: 1;
@@ -465,125 +453,30 @@ a:hover .gm-card-title {
     }
 }
 
-/* Shrunk Offset Black Backdrop Card in Floating Mode */
-.gm-hero-video-card.is-floating .gm-hero-card-backdrop {
-    top: 10px !important;
-    right: -10px !important;
-    bottom: -38px !important;
-    left: 24px !important;
-    padding-bottom: 10px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
-}
-
-.gm-hero-video-card.is-floating .gm-hero-card-brand {
-    font-size: 11px !important;
-    letter-spacing: 0.3em !important;
-    text-indent: 0.3em !important;
-}
-
-/* Shrunk Video Frame in Floating Mode */
-.gm-hero-video-card.is-floating .gm-hero-video-frame {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
-}
-
-/* Shrunk Video Overlay Typography */
-.gm-hero-video-card.is-floating .gm-hero-video-text-overlay {
-    bottom: 10px !important;
-    left: 10px !important;
-    right: 10px !important;
-}
-
-.gm-hero-video-card.is-floating .gm-hero-video-subtitle {
-    font-size: 10px !important;
-    margin-bottom: 1px !important;
-}
-
-.gm-hero-video-card.is-floating .gm-hero-video-title {
-    font-size: 22px !important;
-}
-
-/* Shrunk Sound Button */
-.gm-hero-video-card.is-floating .gm-hero-sound-toggle {
-    width: 24px !important;
-    height: 24px !important;
-    top: 6px !important;
-    right: 6px !important;
-}
-
-.gm-hero-video-card.is-floating .gm-hero-sound-toggle svg {
-    width: 12px !important;
-    height: 12px !important;
-}
-
-/* Floating Dismiss Close Button */
-.gm-hero-video-close {
-    position: absolute;
-    top: -9px;
-    right: -9px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #000000;
-    color: #ffffff;
-    border: 1.5px solid #ffffff;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-    padding: 0;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.gm-hero-video-card.is-floating .gm-hero-video-close {
-    display: flex;
-}
-
-.gm-hero-video-close:hover {
-    transform: scale(1.15);
-    background: #222222;
-}
-
-.gm-hero-video-close svg {
-    width: 11px;
-    height: 11px;
-    fill: currentColor;
-    display: block;
-}
-
 /* Shift back-to-top button up when floating hero video is active */
 body.has-floating-hero-video #tcc-floating-to-top {
-    bottom: 280px !important;
+    bottom: 270px !important;
     transition: bottom 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
+@media (max-width: 900px) {
+    .gm-hero-side {
+        width: 100%;
+        padding: 24px 20px;
+    }
+    .gm-hero-portrait-card-wrap {
+        max-width: 240px;
+    }
+}
+
 @media (max-width: 768px) {
-    .gm-hero-video-card.is-floating {
+    .gm-hero-floating-player.is-floating {
         bottom: 18px !important;
         right: 16px !important;
-        width: 135px !important;
-    }
-    .gm-hero-video-card.is-floating .gm-hero-card-backdrop {
-        top: 8px !important;
-        right: -8px !important;
-        bottom: -32px !important;
-        left: 20px !important;
-        padding-bottom: 8px !important;
-    }
-    .gm-hero-video-card.is-floating .gm-hero-card-brand {
-        font-size: 9.5px !important;
-        letter-spacing: 0.26em !important;
-        text-indent: 0.26em !important;
-    }
-    .gm-hero-video-card.is-floating .gm-hero-video-title {
-        font-size: 18px !important;
-    }
-    .gm-hero-video-card.is-floating .gm-hero-video-subtitle {
-        font-size: 9px !important;
+        width: 130px !important;
     }
     body.has-floating-hero-video #tcc-floating-to-top {
-        bottom: 240px !important;
+        bottom: 230px !important;
     }
 }
 
@@ -1558,78 +1451,62 @@ body.has-floating-hero-video #tcc-floating-to-top {
         </a>
         <?php wp_reset_postdata(); ?>
 
-        <!-- Right: Video Player / Portrait Story Card -->
+                <!-- Right: Video Player / Portrait Story Card -->
         <?php
-        $hero_video_url      = get_theme_mod( 'tcc_hero_video_url', '' );
+        $hero_video_url    = get_theme_mod( 'tcc_hero_video_url', '' );
         if ( empty( $hero_video_url ) ) {
             if ( file_exists( get_template_directory() . '/assets/videos/hero-video.mp4' ) ) {
                 $hero_video_url = get_template_directory_uri() . '/assets/videos/hero-video.mp4';
             }
         }
-        $hero_video_poster   = get_theme_mod( 'tcc_hero_video_poster', '' );
+        $hero_video_poster = get_theme_mod( 'tcc_hero_video_poster', '' );
         if ( empty( $hero_video_poster ) ) {
-            $hero_video_poster = get_template_directory_uri() . '/assets/images/hero-portrait-card.png';
+            $hero_video_poster = get_template_directory_uri() . '/assets/images/hero-video-poster.jpg';
         }
-        $hero_video_subtitle = get_theme_mod( 'tcc_hero_video_subtitle', 'The Era of Influence' );
-        $hero_video_title    = get_theme_mod( 'tcc_hero_video_title', 'Alix Earle' );
-        $hero_video_brand    = get_theme_mod( 'tcc_hero_video_brand', 'GLOSSY' );
-        $hero_video_link     = get_theme_mod( 'tcc_hero_video_link', home_url( '/category/trends-innovation/' ) );
+        $hero_video_brand  = get_theme_mod( 'tcc_hero_video_brand', 'GLOSSY' );
+        $hero_video_link   = get_theme_mod( 'tcc_hero_video_link', home_url( '/category/trends-innovation/' ) );
         if ( empty( $hero_video_link ) ) {
             $hero_video_link = home_url( '/category/trends-innovation/' );
         }
         ?>
         <div class="gm-hero-side">
-            <div class="gm-hero-video-card-container" id="gmHeroCardContainer">
-                <div class="gm-hero-video-card" id="gmHeroVideoCard">
-                    <!-- Floating Dismiss Close Button -->
-                    <button type="button" class="gm-hero-video-close" id="gmHeroVideoClose" aria-label="Close Floating Video" title="Close Floating Video">
-                        <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    </button>
+            <div class="gm-hero-portrait-card-wrap" id="gmHeroCardWrap">
+                <!-- The Black Offset Accent on Right & Bottom -->
+                <div class="gm-hero-card-accent"></div>
 
-                    <!-- Offset Black Backdrop with GLOSSY Brand Badge -->
-                    <a href="<?php echo esc_url( $hero_video_link ); ?>" class="gm-hero-card-backdrop" aria-label="<?php echo esc_attr( $hero_video_brand ); ?>">
-                        <span class="gm-hero-card-brand"><?php echo esc_html( $hero_video_brand ); ?></span>
-                    </a>
-
-                    <!-- Video / Media Player Frame -->
-                    <div class="gm-hero-video-frame">
+                <!-- Video Slot (Holds position in hero card when video floats) -->
+                <div class="gm-hero-video-slot" id="gmHeroVideoSlot">
+                    <!-- The Floating Video Player (ONLY this element floats on scroll!) -->
+                    <div class="gm-hero-floating-player" id="gmHeroFloatingPlayer">
                         <?php if ( ! empty( $hero_video_url ) ) : ?>
-                            <video id="gmHeroPortraitVideo" class="gm-hero-portrait-video" playsinline autoplay muted loop poster="<?php echo esc_url( $hero_video_poster ); ?>">
+                            <video id="gmHeroPortraitVideo" class="gm-hero-video-tag" playsinline autoplay muted loop poster="<?php echo esc_url( $hero_video_poster ); ?>">
                                 <source src="<?php echo esc_url( $hero_video_url ); ?>" type="video/mp4">
                             </video>
                         <?php else : ?>
-                            <img src="<?php echo esc_url( $hero_video_poster ); ?>" alt="<?php echo esc_attr( $hero_video_subtitle . ' - ' . $hero_video_title ); ?>" class="gm-hero-portrait-video" />
+                            <img src="<?php echo esc_url( $hero_video_poster ); ?>" alt="Hero Video" class="gm-hero-video-tag" />
                         <?php endif; ?>
 
-                        <!-- Dark Vignette / Gradient Overlay for readability -->
-                        <div class="gm-hero-video-gradient"></div>
-
-                        <!-- Sound Toggle Button (Mute / Unmute) -->
+                        <!-- Sound Toggle Button -->
                         <button type="button" class="gm-hero-sound-toggle" id="gmHeroSoundToggle" aria-label="Toggle Video Sound" title="Toggle Sound">
                             <span class="gm-sound-icon-muted">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
                             </span>
                             <span class="gm-sound-icon-unmuted" style="display:none;">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                             </span>
                         </button>
 
-                        <!-- Optional Play/Pause overlay indicator when clicking frame -->
-                        <div class="gm-hero-play-indicator" id="gmHeroPlayIndicator">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-
-                        <!-- Editorial Typography Overlay (Bottom-Left) -->
-                        <a href="<?php echo esc_url( $hero_video_link ); ?>" class="gm-hero-video-text-overlay">
-                            <?php if ( ! empty( $hero_video_subtitle ) ) : ?>
-                                <span class="gm-hero-video-subtitle"><?php echo esc_html( $hero_video_subtitle ); ?></span>
-                            <?php endif; ?>
-                            <?php if ( ! empty( $hero_video_title ) ) : ?>
-                                <span class="gm-hero-video-title"><?php echo esc_html( $hero_video_title ); ?></span>
-                            <?php endif; ?>
-                        </a>
+                        <!-- Dismiss / Close button for floating player -->
+                        <button type="button" class="gm-hero-floating-close" id="gmHeroFloatingClose" aria-label="Close Floating Video" title="Close Video">
+                            <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        </button>
                     </div>
                 </div>
+
+                <!-- Bottom Solid Black Bar with GLOSSY (stays permanently in hero!) -->
+                <a href="<?php echo esc_url( $hero_video_link ); ?>" class="gm-hero-card-brand-bar">
+                    <span class="gm-hero-brand-text"><?php echo esc_html( $hero_video_brand ); ?></span>
+                </a>
             </div>
         </div>
     </section>
@@ -2365,12 +2242,11 @@ body.has-floating-hero-video #tcc-floating-to-top {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    var floatingPlayer = document.getElementById('gmHeroFloatingPlayer');
+    var videoSlot = document.getElementById('gmHeroVideoSlot');
+    var closeBtn = document.getElementById('gmHeroFloatingClose');
     var video = document.getElementById('gmHeroPortraitVideo');
     var soundBtn = document.getElementById('gmHeroSoundToggle');
-    var playIndicator = document.getElementById('gmHeroPlayIndicator');
-    var card = document.getElementById('gmHeroVideoCard');
-    var container = document.getElementById('gmHeroCardContainer');
-    var closeBtn = document.getElementById('gmHeroVideoClose');
 
     if (video && soundBtn) {
         var mutedIcon = soundBtn.querySelector('.gm-sound-icon-muted');
@@ -2393,40 +2269,34 @@ document.addEventListener('DOMContentLoaded', function() {
         video.addEventListener('click', function(e) {
             if (video.paused) {
                 video.play();
-                if (playIndicator) {
-                    playIndicator.classList.remove('is-visible');
-                }
             } else {
                 video.pause();
-                if (playIndicator) {
-                    playIndicator.classList.add('is-visible');
-                }
             }
         });
     }
 
-    // Floating Picture-in-Picture on scroll
-    if (card && container) {
+    // Scroll detection: Float ONLY the video player
+    if (floatingPlayer && videoSlot) {
         var isDismissed = false;
 
         function updateFloatingState() {
-            var rect = container.getBoundingClientRect();
-            // When the hero container bottom is scrolled above 40px from top
-            var shouldFloat = rect.bottom < 40;
+            var rect = videoSlot.getBoundingClientRect();
+            // When the video slot top has scrolled out of view
+            var shouldFloat = rect.bottom < 20;
 
-            // Reset dismissal when user scrolls back into hero
-            if (rect.bottom >= 120) {
+            // Reset dismissal when user scrolls back near the hero section
+            if (rect.bottom >= 100) {
                 isDismissed = false;
             }
 
             if (shouldFloat && !isDismissed) {
-                if (!card.classList.contains('is-floating')) {
-                    card.classList.add('is-floating');
+                if (!floatingPlayer.classList.contains('is-floating')) {
+                    floatingPlayer.classList.add('is-floating');
                     document.body.classList.add('has-floating-hero-video');
                 }
             } else {
-                if (card.classList.contains('is-floating')) {
-                    card.classList.remove('is-floating');
+                if (floatingPlayer.classList.contains('is-floating')) {
+                    floatingPlayer.classList.remove('is-floating');
                     document.body.classList.remove('has-floating-hero-video');
                 }
             }
@@ -2441,7 +2311,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.stopPropagation();
                 e.preventDefault();
                 isDismissed = true;
-                card.classList.remove('is-floating');
+                floatingPlayer.classList.remove('is-floating');
                 document.body.classList.remove('has-floating-hero-video');
             });
         }
