@@ -265,8 +265,16 @@ a:hover .gm-card-title {
     transition: transform 0.3s ease;
 }
 
-.gm-hero-portrait-card-wrap:hover {
+.gm-hero-portrait-card-wrap:not(.has-floating-player):hover {
     transform: translateY(-3px);
+}
+
+body.has-floating-hero-video .gm-hero-portrait-card-wrap,
+body.has-floating-hero-video .gm-hero-portrait-card-wrap:hover,
+.gm-hero-portrait-card-wrap.has-floating-player,
+.gm-hero-portrait-card-wrap.has-floating-player:hover {
+    transform: none !important;
+    transition: none !important;
 }
 
 /* Offset black accent sticking out top-right and right edge */
@@ -423,7 +431,12 @@ a:hover .gm-card-title {
     overflow: hidden !important;
     z-index: 1005 !important;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45) !important;
-    animation: gmFloatSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    will-change: transform, opacity;
+    animation: gmFloatSlideIn 0.25s ease-out;
 }
 
 .gm-hero-floating-player.is-floating .gm-hero-floating-close {
@@ -2279,6 +2292,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Scroll detection: Float ONLY the video player
+    var cardWrap = document.getElementById('gmHeroCardWrap');
     if (floatingPlayer && videoSlot) {
         var isDismissed = false;
 
@@ -2296,11 +2310,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!floatingPlayer.classList.contains('is-floating')) {
                     floatingPlayer.classList.add('is-floating');
                     document.body.classList.add('has-floating-hero-video');
+                    if (cardWrap) cardWrap.classList.add('has-floating-player');
                 }
             } else {
                 if (floatingPlayer.classList.contains('is-floating')) {
                     floatingPlayer.classList.remove('is-floating');
                     document.body.classList.remove('has-floating-hero-video');
+                    if (cardWrap) cardWrap.classList.remove('has-floating-player');
                 }
             }
         }
@@ -2316,6 +2332,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 isDismissed = true;
                 floatingPlayer.classList.remove('is-floating');
                 document.body.classList.remove('has-floating-hero-video');
+                if (cardWrap) cardWrap.classList.remove('has-floating-player');
             });
         }
     }
