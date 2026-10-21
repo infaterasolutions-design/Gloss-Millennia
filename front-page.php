@@ -31,7 +31,7 @@ get_header();
 .gm-home-wrapper {
     width: 100%;
     margin: 0;
-    padding: 24px 0 80px;
+    padding: 24px 0 0;
     box-sizing: border-box;
     font-family: var(--gm-font-sans);
     color: var(--gm-color-dark);
@@ -948,7 +948,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
     padding-bottom: clamp(50px, 5.5vw, 85px);
     padding-left: 0;
     padding-right: 0;
-    margin-bottom: 90px;
+    margin-bottom: 0 !important;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -959,7 +959,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
     grid-template-rows: repeat(2, clamp(280px, 22vw, 380px));
     width: 100%;
     gap: 4px;
-    background: #ffffff;
+    background: #ECE7E6;
 }
 
 .gm-nail-edit-intro {
@@ -1030,6 +1030,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
     height: 100%;
     overflow: hidden;
     position: relative;
+    background: #ECE7E6;
 }
 
 .gm-nail-img-wrap img {
@@ -1118,9 +1119,11 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-latest-section,
     .gm-most-clicked-section,
-    .gm-shopping-section,
-    .gm-nails-section {
+    .gm-shopping-section {
         margin-bottom: 50px;
+    }
+    .gm-nails-section {
+        margin-bottom: 0 !important;
     }
     .gm-latest-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1355,9 +1358,11 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-latest-section,
     .gm-most-clicked-section,
-    .gm-shopping-section,
-    .gm-nails-section {
+    .gm-shopping-section {
         margin-bottom: 40px;
+    }
+    .gm-nails-section {
+        margin-bottom: 0 !important;
     }
     .gm-accent-line {
         width: 70px;
