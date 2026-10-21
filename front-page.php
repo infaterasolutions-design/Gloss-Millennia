@@ -943,6 +943,9 @@ body.has-floating-hero-video #tcc-floating-to-top {
     max-width: 100%;
     margin-left: 0;
     margin-right: 0;
+    background: #ECE7E6;
+    padding-top: clamp(50px, 5.5vw, 85px);
+    padding-bottom: clamp(50px, 5.5vw, 85px);
     padding-left: 0;
     padding-right: 0;
     margin-bottom: 90px;
