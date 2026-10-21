@@ -1455,13 +1455,16 @@ body.has-floating-hero-video #tcc-floating-to-top {
         <?php
         $hero_video_url    = get_theme_mod( 'tcc_hero_video_url', '' );
         if ( empty( $hero_video_url ) ) {
-            if ( file_exists( get_template_directory() . '/assets/videos/hero-video.mp4' ) ) {
-                $hero_video_url = get_template_directory_uri() . '/assets/videos/hero-video.mp4';
+            $video_file = get_template_directory() . '/assets/videos/hero-video.mp4';
+            if ( file_exists( $video_file ) ) {
+                $hero_video_url = get_template_directory_uri() . '/assets/videos/hero-video.mp4?v=' . filemtime( $video_file );
             }
         }
         $hero_video_poster = get_theme_mod( 'tcc_hero_video_poster', '' );
         if ( empty( $hero_video_poster ) ) {
-            $hero_video_poster = get_template_directory_uri() . '/assets/images/hero-video-poster.jpg';
+            $poster_file = get_template_directory() . '/assets/images/dress-poster.jpg';
+            $poster_ver  = file_exists( $poster_file ) ? filemtime( $poster_file ) : time();
+            $hero_video_poster = get_template_directory_uri() . '/assets/images/dress-poster.jpg?v=' . $poster_ver;
         }
         $hero_video_brand  = get_theme_mod( 'tcc_hero_video_brand', 'GLOSSY' );
         $hero_video_link   = get_theme_mod( 'tcc_hero_video_link', home_url( '/category/trends-innovation/' ) );
@@ -1479,7 +1482,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
                     <!-- The Floating Video Player (ONLY this element floats on scroll!) -->
                     <div class="gm-hero-floating-player" id="gmHeroFloatingPlayer">
                         <?php if ( ! empty( $hero_video_url ) ) : ?>
-                            <video id="gmHeroPortraitVideo" class="gm-hero-video-tag" playsinline autoplay muted loop poster="<?php echo esc_url( $hero_video_poster ); ?>">
+                            <video id="gmHeroPortraitVideo" class="gm-hero-video-tag" playsinline autoplay muted loop preload="auto" poster="<?php echo esc_url( $hero_video_poster ); ?>">
                                 <source src="<?php echo esc_url( $hero_video_url ); ?>" type="video/mp4">
                             </video>
                         <?php else : ?>
