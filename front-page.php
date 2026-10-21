@@ -245,42 +245,199 @@ a:hover .gm-card-title {
     margin: 0;
 }
 
-/* Right Feature Card */
+/* Right Editorial Video Card (GLOSSY Portrait Offset Layout) */
 .gm-hero-side {
     width: 320px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px 36px;
+    padding: 30px 30px 65px 20px;
     box-sizing: border-box;
     background: #FAF9F6;
 }
 
-.gm-hero-portrait-link {
-    display: block;
+.gm-hero-video-card-container {
+    width: 100%;
+    max-width: 245px;
+    display: flex;
+    justify-content: center;
+}
+
+.gm-hero-video-card {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
+/* Offset Solid Black Backdrop Card */
+.gm-hero-card-backdrop {
+    position: absolute;
+    top: 14px;
+    right: -14px;
+    bottom: -54px;
+    left: 36px;
+    background: #000000;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 16px;
     text-decoration: none;
-    max-width: 250px;
-    width: 100%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-.gm-hero-portrait-link:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+.gm-hero-card-brand {
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    line-height: 1;
+    text-indent: 0.32em;
+    user-select: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.gm-hero-portrait-img {
+.gm-hero-card-backdrop:hover .gm-hero-card-brand {
+    opacity: 0.85;
+}
+
+/* Video / Media Player Frame */
+.gm-hero-video-frame {
+    position: relative;
+    z-index: 2;
     width: 100%;
-    height: auto;
+    aspect-ratio: 304 / 363;
+    background: #111111;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gm-hero-video-card:hover .gm-hero-video-frame {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+.gm-hero-portrait-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+}
+
+/* Dark Vignette / Gradient Overlay */
+.gm-hero-video-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.25) 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Sound Toggle Button */
+.gm-hero-sound-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.gm-hero-sound-toggle:hover {
+    background: rgba(0, 0, 0, 0.85);
+    transform: scale(1.1);
+}
+
+.gm-hero-sound-toggle svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
     display: block;
 }
 
-.gm-hero-video-badge svg {
-    width: 14px;
-    height: 14px;
-    fill: #ffffff;
+/* Play/Pause Pulse Indicator */
+.gm-hero-play-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.gm-hero-play-indicator.is-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Editorial Typography Overlay (Bottom-Left) */
+.gm-hero-video-text-overlay {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    z-index: 3;
+    text-decoration: none;
+    color: #ffffff !important;
+    text-align: left;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.gm-hero-video-text-overlay:hover {
+    transform: translateY(-1px);
+}
+
+.gm-hero-video-subtitle {
+    display: block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 2px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.gm-hero-video-title {
+    display: block;
+    font-family: 'Great Vibes', 'Allura', 'Sacramento', cursive;
+    font-size: 32px;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
 }
 
 /* ==========================================================================
@@ -856,7 +1013,10 @@ a:hover .gm-card-title {
     }
     .gm-hero-side {
         width: 100%;
-        padding: 20px;
+        padding: 30px 20px 65px;
+    }
+    .gm-hero-video-card-container {
+        max-width: 250px;
     }
     .gm-heading-xl {
         font-size: clamp(30px, 5vw, 48px);
@@ -1251,11 +1411,74 @@ a:hover .gm-card-title {
         </a>
         <?php wp_reset_postdata(); ?>
 
-        <!-- Right: Video Player / Portrait Story -->
+        <!-- Right: Video Player / Portrait Story Card -->
+        <?php
+        $hero_video_url      = get_theme_mod( 'tcc_hero_video_url', '' );
+        if ( empty( $hero_video_url ) ) {
+            if ( file_exists( get_template_directory() . '/assets/videos/hero-video.mp4' ) ) {
+                $hero_video_url = get_template_directory_uri() . '/assets/videos/hero-video.mp4';
+            }
+        }
+        $hero_video_poster   = get_theme_mod( 'tcc_hero_video_poster', '' );
+        if ( empty( $hero_video_poster ) ) {
+            $hero_video_poster = get_template_directory_uri() . '/assets/images/hero-portrait-card.png';
+        }
+        $hero_video_subtitle = get_theme_mod( 'tcc_hero_video_subtitle', 'The Era of Influence' );
+        $hero_video_title    = get_theme_mod( 'tcc_hero_video_title', 'Alix Earle' );
+        $hero_video_brand    = get_theme_mod( 'tcc_hero_video_brand', 'GLOSSY' );
+        $hero_video_link     = get_theme_mod( 'tcc_hero_video_link', home_url( '/category/trends-innovation/' ) );
+        if ( empty( $hero_video_link ) ) {
+            $hero_video_link = home_url( '/category/trends-innovation/' );
+        }
+        ?>
         <div class="gm-hero-side">
-            <a href="<?php echo esc_url( home_url( '/category/trends-innovation/' ) ); ?>" class="gm-hero-portrait-link">
-                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hero-portrait-card.png' ); ?>" alt="The Era of Influence - Alix Earle" class="gm-hero-portrait-img" />
-            </a>
+            <div class="gm-hero-video-card-container">
+                <div class="gm-hero-video-card">
+                    <!-- Offset Black Backdrop with GLOSSY Brand Badge -->
+                    <a href="<?php echo esc_url( $hero_video_link ); ?>" class="gm-hero-card-backdrop" aria-label="<?php echo esc_attr( $hero_video_brand ); ?>">
+                        <span class="gm-hero-card-brand"><?php echo esc_html( $hero_video_brand ); ?></span>
+                    </a>
+
+                    <!-- Video / Media Player Frame -->
+                    <div class="gm-hero-video-frame">
+                        <?php if ( ! empty( $hero_video_url ) ) : ?>
+                            <video id="gmHeroPortraitVideo" class="gm-hero-portrait-video" playsinline autoplay muted loop poster="<?php echo esc_url( $hero_video_poster ); ?>">
+                                <source src="<?php echo esc_url( $hero_video_url ); ?>" type="video/mp4">
+                            </video>
+                        <?php else : ?>
+                            <img src="<?php echo esc_url( $hero_video_poster ); ?>" alt="<?php echo esc_attr( $hero_video_subtitle . ' - ' . $hero_video_title ); ?>" class="gm-hero-portrait-video" />
+                        <?php endif; ?>
+
+                        <!-- Dark Vignette / Gradient Overlay for readability -->
+                        <div class="gm-hero-video-gradient"></div>
+
+                        <!-- Sound Toggle Button (Mute / Unmute) -->
+                        <button type="button" class="gm-hero-sound-toggle" id="gmHeroSoundToggle" aria-label="Toggle Video Sound" title="Toggle Sound">
+                            <span class="gm-sound-icon-muted">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                            </span>
+                            <span class="gm-sound-icon-unmuted" style="display:none;">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                            </span>
+                        </button>
+
+                        <!-- Optional Play/Pause overlay indicator when clicking frame -->
+                        <div class="gm-hero-play-indicator" id="gmHeroPlayIndicator">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+
+                        <!-- Editorial Typography Overlay (Bottom-Left) -->
+                        <a href="<?php echo esc_url( $hero_video_link ); ?>" class="gm-hero-video-text-overlay">
+                            <?php if ( ! empty( $hero_video_subtitle ) ) : ?>
+                                <span class="gm-hero-video-subtitle"><?php echo esc_html( $hero_video_subtitle ); ?></span>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $hero_video_title ) ) : ?>
+                                <span class="gm-hero-video-title"><?php echo esc_html( $hero_video_title ); ?></span>
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1987,6 +2210,47 @@ a:hover .gm-card-title {
     </section>
 
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var video = document.getElementById('gmHeroPortraitVideo');
+    var soundBtn = document.getElementById('gmHeroSoundToggle');
+    var playIndicator = document.getElementById('gmHeroPlayIndicator');
+
+    if (video && soundBtn) {
+        var mutedIcon = soundBtn.querySelector('.gm-sound-icon-muted');
+        var unmutedIcon = soundBtn.querySelector('.gm-sound-icon-unmuted');
+
+        soundBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            video.muted = !video.muted;
+            if (video.muted) {
+                if (mutedIcon) mutedIcon.style.display = 'block';
+                if (unmutedIcon) unmutedIcon.style.display = 'none';
+            } else {
+                if (mutedIcon) mutedIcon.style.display = 'none';
+                if (unmutedIcon) unmutedIcon.style.display = 'block';
+            }
+        });
+
+        // Click on video to toggle play/pause
+        video.addEventListener('click', function(e) {
+            if (video.paused) {
+                video.play();
+                if (playIndicator) {
+                    playIndicator.classList.remove('is-visible');
+                }
+            } else {
+                video.pause();
+                if (playIndicator) {
+                    playIndicator.classList.add('is-visible');
+                }
+            }
+        });
+    }
+});
+</script>
 
 <?php 
 get_footer();

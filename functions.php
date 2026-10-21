@@ -267,6 +267,69 @@ function tcc_customize_register( $wp_customize ) {
         'section'  => 'tcc_hero_section',
         'settings' => 'tcc_hero_image',
     ) ) );
+
+    // Hero Portrait Video & Glossy Card Controls
+    $wp_customize->add_setting( 'tcc_hero_video_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_video_url', array(
+        'label'       => __( 'Hero Portrait Video URL (MP4)', 'tcc' ),
+        'description' => __( 'Upload to Media Library and paste the MP4 URL, or leave blank to use assets/videos/hero-video.mp4', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'type'        => 'url',
+    ) );
+
+    $wp_customize->add_setting( 'tcc_hero_video_poster', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'tcc_hero_video_poster', array(
+        'label'       => __( 'Hero Portrait Poster Image', 'tcc' ),
+        'description' => __( 'Fallback/poster image before video plays', 'tcc' ),
+        'section'     => 'tcc_hero_section',
+        'settings'    => 'tcc_hero_video_poster',
+    ) ) );
+
+    $wp_customize->add_setting( 'tcc_hero_video_subtitle', array(
+        'default'           => 'The Era of Influence',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_video_subtitle', array(
+        'label'   => __( 'Hero Portrait Subtitle', 'tcc' ),
+        'section' => 'tcc_hero_section',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'tcc_hero_video_title', array(
+        'default'           => 'Alix Earle',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_video_title', array(
+        'label'   => __( 'Hero Portrait Title / Name', 'tcc' ),
+        'section' => 'tcc_hero_section',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'tcc_hero_video_brand', array(
+        'default'           => 'GLOSSY',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_video_brand', array(
+        'label'   => __( 'Hero Portrait Brand Badge Text', 'tcc' ),
+        'section' => 'tcc_hero_section',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'tcc_hero_video_link', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'tcc_hero_video_link', array(
+        'label'   => __( 'Hero Portrait Target Link URL', 'tcc' ),
+        'section' => 'tcc_hero_section',
+        'type'    => 'url',
+    ) );
 }
 add_action( 'customize_register', 'tcc_customize_register' );
 
