@@ -782,6 +782,42 @@ body.has-floating-hero-video #tcc-floating-to-top {
     gap: 28px;
 }
 
+.gm-clicked-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+
+.gm-clicked-card .gm-card-img-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #eee;
+    margin-bottom: 14px;
+}
+
+.gm-clicked-card .gm-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gm-clicked-card:hover .gm-card-img-wrap img {
+    transform: scale(1.04);
+}
+
+.gm-clicked-card .gm-card-title {
+    font-family: var(--gm-font-sans);
+    font-size: 22px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--gm-color-dark);
+    margin: 8px 0;
+}
+
 /* ==========================================================================
    5. SHOPPING SECTION
    ========================================================================== */
@@ -1483,6 +1519,57 @@ body.has-floating-hero-video #tcc-floating-to-top {
         letter-spacing: 0.5px;
         color: #111111;
         margin-top: 4px;
+    }
+    .gm-four-col-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    .gm-clicked-card {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    .gm-clicked-card .gm-card-img-wrap {
+        width: 100% !important;
+        aspect-ratio: 4 / 3 !important;
+        margin-bottom: 14px !important;
+    }
+    .gm-clicked-card .gm-category-tag {
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 1px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        color: var(--gm-color-dark) !important;
+        margin-bottom: 6px !important;
+        display: block !important;
+    }
+    .gm-clicked-card .gm-card-title {
+        font-family: var(--gm-font-sans) !important;
+        font-size: clamp(22px, 5.8vw, 26px) !important;
+        line-height: 1.25 !important;
+        font-weight: 600 !important;
+        color: var(--gm-color-dark) !important;
+        margin: 6px 0 10px 0 !important;
+        display: block !important;
+    }
+    .gm-clicked-card .gm-card-excerpt {
+        display: block !important;
+        font-family: var(--gm-font-serif) !important;
+        font-size: 15px !important;
+        line-height: 1.45 !important;
+        color: #333333 !important;
+        margin: 0 0 12px 0 !important;
+    }
+    .gm-clicked-card .gm-card-author {
+        display: block !important;
+        font-family: var(--gm-font-sans) !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        color: #111111 !important;
+        margin-top: auto !important;
     }
     .gm-seal-title {
         font-size: 17px;
@@ -2240,7 +2327,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
                     $cats = get_the_category();
                     $cat_name = ! empty( $cats ) ? $cats[0]->name : ( $clicked_cat ? $clicked_cat->name : 'Most Clicked' );
                     ?>
-                    <a href="<?php the_permalink(); ?>" class="gm-latest-card">
+                    <a href="<?php the_permalink(); ?>" class="gm-clicked-card">
                         <div class="gm-card-img-wrap">
                             <?php if ( has_post_thumbnail() ) : ?>
                                 <?php the_post_thumbnail( 'medium_large' ); ?>
@@ -2264,7 +2351,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
             for ( $i = $c_count; $i < 4; $i++ ) {
                 $item = $clicked_items[$i];
                 ?>
-                <a href="<?php echo esc_url( $clicked_cat_link ); ?>" class="gm-latest-card">
+                <a href="<?php echo esc_url( $clicked_cat_link ); ?>" class="gm-clicked-card">
                     <div class="gm-card-img-wrap">
                         <img src="<?php echo esc_url( $item['img'] ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" />
                     </div>
