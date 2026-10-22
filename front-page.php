@@ -1278,9 +1278,9 @@ body.has-floating-hero-video #tcc-floating-to-top {
     .gm-latest-card .gm-card-author {
         display: none !important;
     }
-    .gm-heading-xl {
-        font-size: clamp(28px, 6vw, 38px);
-    }
+    .gm-heading-xl,
+    .gm-latest-section .gm-heading-xl,
+    .gm-most-clicked-section .gm-heading-xl,
     .gm-shopping-section .gm-heading-xl {
         font-size: clamp(34px, 8.5vw, 46px) !important;
         letter-spacing: 0.8px;
@@ -1430,8 +1430,14 @@ body.has-floating-hero-video #tcc-floating-to-top {
         font-size: 12px;
         line-height: 1.4;
     }
-    .gm-heading-xl {
-        font-size: clamp(24px, 7vw, 34px);
+    .gm-heading-xl,
+    .gm-latest-section .gm-heading-xl,
+    .gm-most-clicked-section .gm-heading-xl,
+    .gm-shopping-section .gm-heading-xl {
+        font-size: clamp(34px, 8.5vw, 46px) !important;
+        letter-spacing: 0.8px;
+        line-height: 1.1;
+        margin-bottom: 8px;
     }
     .gm-featured-large-title {
         font-size: 24px;
@@ -1497,11 +1503,14 @@ body.has-floating-hero-video #tcc-floating-to-top {
         font-size: clamp(24px, 8vw, 36px);
         -webkit-text-stroke: 1px #111111;
     }
-    .gm-heading-xl {
-        font-size: 26px;
-    }
+    .gm-heading-xl,
+    .gm-latest-section .gm-heading-xl,
+    .gm-most-clicked-section .gm-heading-xl,
     .gm-shopping-section .gm-heading-xl {
         font-size: clamp(32px, 9vw, 40px) !important;
+        letter-spacing: 0.8px;
+        line-height: 1.1;
+        margin-bottom: 8px;
     }
     .gm-horizontal-list {
         gap: 32px;
