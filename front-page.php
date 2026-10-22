@@ -1321,28 +1321,58 @@ body.has-floating-hero-video #tcc-floating-to-top {
         font-size: 13px;
     }
     .gm-horizontal-list {
-        gap: 20px;
+        gap: 36px;
     }
     .gm-horizontal-item {
         display: flex !important;
         flex-direction: row !important;
-        gap: 14px;
+        gap: clamp(14px, 4vw, 20px);
         align-items: flex-start;
+        text-decoration: none;
+        color: inherit;
+        width: 100%;
     }
     .gm-horizontal-thumb {
-        width: clamp(110px, 28vw, 130px) !important;
-        height: clamp(84px, 22vw, 100px) !important;
-        aspect-ratio: 4 / 3;
+        flex: 0 0 clamp(135px, 44%, 185px) !important;
+        width: clamp(135px, 44%, 185px) !important;
+        max-width: 48%;
+        aspect-ratio: 1.2 / 1 !important;
+        height: auto !important;
         flex-shrink: 0;
+        overflow: hidden;
+        background: #EFEFEF;
     }
     .gm-horizontal-content {
         flex: 1;
         min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .gm-horizontal-content .gm-category-tag {
+        font-size: 11px;
+        line-height: 1.2;
+        letter-spacing: 0.8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--gm-color-dark);
+        margin-bottom: 6px;
     }
     .gm-horizontal-title {
-        font-size: clamp(15px, 3.8vw, 17px);
-        line-height: 1.3;
-        margin: 2px 0 5px;
+        font-family: var(--gm-font-sans);
+        font-size: clamp(17px, 4.4vw, 20px);
+        line-height: 1.25;
+        font-weight: 600;
+        margin: 0 0 10px;
+        color: var(--gm-color-dark);
+        display: block;
+    }
+    .gm-horizontal-content .gm-card-author {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #111111;
+        margin-top: 4px;
     }
     .gm-seal-title {
         font-size: 17px;
@@ -1374,13 +1404,15 @@ body.has-floating-hero-video #tcc-floating-to-top {
     .gm-horizontal-item {
         display: flex !important;
         flex-direction: row !important;
-        gap: 14px;
+        gap: clamp(14px, 4vw, 18px);
         align-items: flex-start;
     }
     .gm-horizontal-thumb {
-        width: clamp(105px, 28vw, 125px) !important;
-        height: clamp(80px, 22vw, 96px) !important;
-        aspect-ratio: 4 / 3;
+        flex: 0 0 clamp(135px, 44%, 185px) !important;
+        width: clamp(135px, 44%, 185px) !important;
+        max-width: 48%;
+        aspect-ratio: 1.2 / 1 !important;
+        height: auto !important;
         flex-shrink: 0;
     }
     .gm-hero-image-wrap {
@@ -1471,16 +1503,23 @@ body.has-floating-hero-video #tcc-floating-to-top {
     .gm-shopping-section .gm-heading-xl {
         font-size: clamp(32px, 9vw, 40px) !important;
     }
+    .gm-horizontal-list {
+        gap: 32px;
+    }
     .gm-horizontal-item {
-        gap: 12px;
+        gap: 14px;
     }
     .gm-horizontal-thumb {
-        width: 105px !important;
-        height: 80px !important;
+        flex: 0 0 clamp(130px, 45%, 175px) !important;
+        width: clamp(130px, 45%, 175px) !important;
+        max-width: 48%;
+        aspect-ratio: 1.2 / 1 !important;
+        height: auto !important;
     }
     .gm-horizontal-title {
-        font-size: 15px;
-        line-height: 1.28;
+        font-size: clamp(16px, 4.4vw, 18px);
+        line-height: 1.25;
+        margin: 0 0 8px;
     }
     .gm-hero-overlay-title {
         font-size: 18px;
