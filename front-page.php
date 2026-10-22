@@ -742,6 +742,33 @@ body.has-floating-hero-video #tcc-floating-to-top {
     gap: 28px;
 }
 
+.gm-trending-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+
+.gm-trending-card .gm-card-img-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #e0ded6;
+    margin-bottom: 12px;
+}
+
+.gm-trending-card .gm-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gm-trending-card:hover .gm-card-img-wrap img {
+    transform: scale(1.04);
+}
+
 /* ==========================================================================
    4. MOST CLICKED SECTION
    ========================================================================== */
@@ -1304,9 +1331,92 @@ body.has-floating-hero-video #tcc-floating-to-top {
     .gm-trending-wrapper {
         padding: 28px 0 40px;
         margin-bottom: 40px;
+        overflow: hidden;
+    }
+    .gm-trending-wrapper .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
     }
     .gm-trending-header-box {
+        padding: 0 20px;
         margin-bottom: 22px;
+    }
+    .gm-trending-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 16px !important;
+        padding: 0 20px 24px !important;
+        margin: 0 !important;
+        scrollbar-width: none !important;
+    }
+    .gm-trending-grid::-webkit-scrollbar {
+        display: none !important;
+    }
+    .gm-trending-card {
+        flex: 0 0 78% !important;
+        max-width: 78% !important;
+        width: 78% !important;
+        scroll-snap-align: start !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-sizing: border-box !important;
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+    .gm-trending-card .gm-card-img-wrap {
+        width: 100% !important;
+        aspect-ratio: 4 / 3 !important;
+        overflow: hidden !important;
+        background: #e0ded6 !important;
+        margin-bottom: 12px !important;
+    }
+    .gm-trending-card .gm-card-img-wrap img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+    }
+    .gm-trending-card .gm-category-tag {
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0.8px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        color: var(--gm-color-dark) !important;
+        margin-bottom: 4px !important;
+        display: block !important;
+    }
+    .gm-trending-card .gm-card-title {
+        font-family: var(--gm-font-sans) !important;
+        font-size: clamp(17px, 4.4vw, 20px) !important;
+        line-height: 1.3 !important;
+        font-weight: 600 !important;
+        margin: 0 0 8px 0 !important;
+        color: var(--gm-color-dark) !important;
+        display: block !important;
+    }
+    .gm-trending-card .gm-card-excerpt {
+        display: block !important;
+        font-family: var(--gm-font-serif) !important;
+        font-size: 14px !important;
+        line-height: 1.45 !important;
+        color: #444444 !important;
+        margin: 0 0 8px 0 !important;
+    }
+    .gm-trending-card .gm-card-author {
+        display: block !important;
+        font-family: var(--gm-font-sans) !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        color: #111111 !important;
+        margin-top: auto !important;
     }
     .gm-hero-image-wrap {
         height: 260px;
@@ -1396,7 +1506,6 @@ body.has-floating-hero-video #tcc-floating-to-top {
         -webkit-text-stroke: 1.2px #111111;
         letter-spacing: 1.5px;
     }
-    .gm-trending-grid,
     .gm-four-col-grid {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -1511,6 +1620,11 @@ body.has-floating-hero-video #tcc-floating-to-top {
         letter-spacing: 0.8px;
         line-height: 1.1;
         margin-bottom: 8px;
+    }
+    .gm-trending-card {
+        flex: 0 0 80% !important;
+        max-width: 80% !important;
+        width: 80% !important;
     }
     .gm-horizontal-list {
         gap: 32px;
@@ -2018,7 +2132,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
                         $cats = get_the_category();
                         $cat_name = ! empty( $cats ) ? $cats[0]->name : ( $trending_cat ? $trending_cat->name : 'Trending' );
                         ?>
-                        <a href="<?php the_permalink(); ?>" class="gm-latest-card">
+                        <a href="<?php the_permalink(); ?>" class="gm-trending-card">
                             <div class="gm-card-img-wrap">
                                 <?php if ( has_post_thumbnail() ) : ?>
                                     <?php the_post_thumbnail( 'medium_large' ); ?>
@@ -2042,7 +2156,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
                 for ( $i = $t_count; $i < 4; $i++ ) {
                     $item = $trending_items[$i];
                     ?>
-                    <a href="<?php echo esc_url( $trending_cat_link ); ?>" class="gm-latest-card">
+                    <a href="<?php echo esc_url( $trending_cat_link ); ?>" class="gm-trending-card">
                         <div class="gm-card-img-wrap">
                             <img src="<?php echo esc_url( $item['img'] ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" />
                         </div>
@@ -2474,6 +2588,27 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 video.pause();
             }
+        });
+    }
+
+    // Smooth horizontal swipe / mouse drag for Trending Now slider on mobile
+    var trendingSlider = document.querySelector('.gm-trending-grid');
+    if (trendingSlider) {
+        var isDown = false;
+        var startX, scrollLeft;
+        trendingSlider.addEventListener('mousedown', function(e) {
+            isDown = true;
+            startX = e.pageX - trendingSlider.offsetLeft;
+            scrollLeft = trendingSlider.scrollLeft;
+        });
+        trendingSlider.addEventListener('mouseleave', function() { isDown = false; });
+        trendingSlider.addEventListener('mouseup', function() { isDown = false; });
+        trendingSlider.addEventListener('mousemove', function(e) {
+            if (!isDown) return;
+            e.preventDefault();
+            var x = e.pageX - trendingSlider.offsetLeft;
+            var walk = (x - startX) * 1.5;
+            trendingSlider.scrollLeft = scrollLeft - walk;
         });
     }
 
