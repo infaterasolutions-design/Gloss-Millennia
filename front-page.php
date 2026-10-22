@@ -911,7 +911,27 @@ body.has-floating-hero-video #tcc-floating-to-top {
     font-size: 16px;
     line-height: 1.5;
     color: #333333;
-    margin: 0 0 28px;
+    margin: 0 0 20px;
+}
+
+.gm-seal-see-all {
+    font-family: var(--gm-font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #111111;
+    text-decoration: none;
+    margin: 0 0 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.gm-seal-see-all:hover {
+    opacity: 0.7;
+    transform: translateX(3px);
 }
 
 .gm-btn-black {
@@ -1259,7 +1279,16 @@ body.has-floating-hero-video #tcc-floating-to-top {
         display: none !important;
     }
     .gm-heading-xl {
-        font-size: clamp(26px, 6vw, 38px);
+        font-size: clamp(28px, 6vw, 38px);
+    }
+    .gm-shopping-section .gm-heading-xl {
+        font-size: clamp(34px, 8.5vw, 46px) !important;
+        letter-spacing: 0.8px;
+        line-height: 1.1;
+        margin-bottom: 8px;
+    }
+    .gm-shopping-section .gm-see-all-link {
+        display: none;
     }
     .gm-section-header-flex {
         margin-bottom: 8px;
@@ -1291,12 +1320,29 @@ body.has-floating-hero-video #tcc-floating-to-top {
     .gm-hero-overlay-excerpt {
         font-size: 13px;
     }
+    .gm-horizontal-list {
+        gap: 20px;
+    }
+    .gm-horizontal-item {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 14px;
+        align-items: flex-start;
+    }
     .gm-horizontal-thumb {
-        width: 120px;
-        height: 95px;
+        width: clamp(110px, 28vw, 130px) !important;
+        height: clamp(84px, 22vw, 100px) !important;
+        aspect-ratio: 4 / 3;
+        flex-shrink: 0;
+    }
+    .gm-horizontal-content {
+        flex: 1;
+        min-width: 0;
     }
     .gm-horizontal-title {
-        font-size: 17px;
+        font-size: clamp(15px, 3.8vw, 17px);
+        line-height: 1.3;
+        margin: 2px 0 5px;
     }
     .gm-seal-title {
         font-size: 17px;
@@ -1326,11 +1372,16 @@ body.has-floating-hero-video #tcc-floating-to-top {
         gap: 24px;
     }
     .gm-horizontal-item {
-        flex-direction: column;
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 14px;
+        align-items: flex-start;
     }
     .gm-horizontal-thumb {
-        width: 100%;
-        height: 200px;
+        width: clamp(105px, 28vw, 125px) !important;
+        height: clamp(80px, 22vw, 96px) !important;
+        aspect-ratio: 4 / 3;
+        flex-shrink: 0;
     }
     .gm-hero-image-wrap {
         height: 220px;
@@ -1415,7 +1466,21 @@ body.has-floating-hero-video #tcc-floating-to-top {
         -webkit-text-stroke: 1px #111111;
     }
     .gm-heading-xl {
-        font-size: 22px;
+        font-size: 26px;
+    }
+    .gm-shopping-section .gm-heading-xl {
+        font-size: clamp(32px, 9vw, 40px) !important;
+    }
+    .gm-horizontal-item {
+        gap: 12px;
+    }
+    .gm-horizontal-thumb {
+        width: 105px !important;
+        height: 80px !important;
+    }
+    .gm-horizontal-title {
+        font-size: 15px;
+        line-height: 1.28;
     }
     .gm-hero-overlay-title {
         font-size: 18px;
@@ -2204,7 +2269,8 @@ body.has-floating-hero-video #tcc-floating-to-top {
                     <span>VERIFIED</span>
                 </div>
                 <h3 class="gm-seal-title">Our Product Testing Seal of Approval</h3>
-                <p class="gm-seal-desc">The Byrdie Verified seal stands for product recommendations you can trust.</p>
+                <p class="gm-seal-desc">The Byrdie Verified seal stands for product recommendations you can trust—all day, every day.</p>
+                <a href="<?php echo esc_url( $shopping_cat_link ); ?>" class="gm-seal-see-all">SEE ALL SHOPPING &rarr;</a>
                 <a href="<?php echo esc_url( home_url( '/about-us/' ) ); ?>" class="gm-btn-black">Learn More</a>
             </div>
         </div>
