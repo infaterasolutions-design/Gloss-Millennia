@@ -10,7 +10,7 @@ get_header();
 <!-- Google Fonts Preload for Jost & Crimson Text -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 /* ==========================================================================
@@ -715,19 +715,19 @@ body.has-floating-hero-video #tcc-floating-to-top {
     font-family: var(--gm-font-display);
     font-size: clamp(60px, 8vw, 110px);
     line-height: 1.1;
-    font-weight: 400;
+    font-weight: 800;
     text-transform: uppercase;
     color: #FFFFFF;
-    -webkit-text-stroke: 2px #111111;
+    -webkit-text-stroke: 3px #000000;
     paint-order: stroke fill;
     letter-spacing: 3px;
     margin: 0;
 }
 
 .gm-trending-title a {
-    color: inherit;
+    color: #FFFFFF !important;
     -webkit-text-stroke: inherit;
-    paint-order: inherit;
+    paint-order: stroke fill;
     text-decoration: none;
     transition: opacity 0.2s ease;
 }
@@ -1230,7 +1230,9 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-trending-title {
         font-size: clamp(44px, 7vw, 80px);
-        -webkit-text-stroke: 1.8px #111111;
+        font-weight: 800 !important;
+        -webkit-text-stroke: 2.5px #000000 !important;
+        paint-order: stroke fill !important;
     }
     .gm-trending-header-box {
         margin-bottom: 30px;
@@ -1360,9 +1362,17 @@ body.has-floating-hero-video #tcc-floating-to-top {
         font-size: 11px;
     }
     .gm-trending-title {
-        font-size: clamp(36px, 9vw, 60px);
-        -webkit-text-stroke: 1.5px #111111;
+        font-size: clamp(34px, 8.5vw, 54px);
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        -webkit-text-stroke: 2.2px #000000 !important;
+        paint-order: stroke fill !important;
         letter-spacing: 2px;
+    }
+    .gm-trending-title a {
+        color: #FFFFFF !important;
+        -webkit-text-stroke: inherit !important;
+        paint-order: stroke fill !important;
     }
     .gm-trending-wrapper {
         padding: 28px 0 40px;
@@ -1384,10 +1394,13 @@ body.has-floating-hero-video #tcc-floating-to-top {
         overflow-x: auto !important;
         overflow-y: hidden !important;
         scroll-snap-type: x mandatory !important;
+        scroll-padding-left: 20px !important;
+        scroll-padding-inline-start: 20px !important;
         -webkit-overflow-scrolling: touch !important;
         gap: 16px !important;
-        padding: 0 20px 24px !important;
+        padding: 0 0 24px !important;
         margin: 0 !important;
+        box-sizing: border-box !important;
         scrollbar-width: none !important;
     }
     .gm-trending-grid::-webkit-scrollbar {
@@ -1398,11 +1411,19 @@ body.has-floating-hero-video #tcc-floating-to-top {
         max-width: 78% !important;
         width: 78% !important;
         scroll-snap-align: start !important;
+        scroll-margin-left: 20px !important;
+        scroll-margin-inline-start: 20px !important;
         display: flex !important;
         flex-direction: column !important;
         box-sizing: border-box !important;
         text-decoration: none !important;
         color: inherit !important;
+    }
+    .gm-trending-card:first-child {
+        margin-left: 20px !important;
+    }
+    .gm-trending-card:last-child {
+        margin-right: 20px !important;
     }
     .gm-trending-card .gm-card-img-wrap {
         width: 100% !important;
@@ -1589,8 +1610,11 @@ body.has-floating-hero-video #tcc-floating-to-top {
 
 @media (max-width: 600px) {
     .gm-trending-title {
-        font-size: clamp(28px, 8.5vw, 42px);
-        -webkit-text-stroke: 1.2px #111111;
+        font-size: clamp(30px, 8.5vw, 44px);
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        -webkit-text-stroke: 2px #000000 !important;
+        paint-order: stroke fill !important;
         letter-spacing: 1.5px;
     }
     .gm-four-col-grid {
@@ -1696,8 +1720,12 @@ body.has-floating-hero-video #tcc-floating-to-top {
         line-height: 1.35;
     }
     .gm-trending-title {
-        font-size: clamp(24px, 8vw, 36px);
-        -webkit-text-stroke: 1px #111111;
+        font-size: clamp(26px, 8vw, 36px);
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        -webkit-text-stroke: 1.8px #000000 !important;
+        paint-order: stroke fill !important;
+        letter-spacing: 1px;
     }
     .gm-heading-xl,
     .gm-latest-section .gm-heading-xl,
@@ -1712,6 +1740,14 @@ body.has-floating-hero-video #tcc-floating-to-top {
         flex: 0 0 80% !important;
         max-width: 80% !important;
         width: 80% !important;
+        scroll-snap-align: start !important;
+        scroll-margin-left: 18px !important;
+    }
+    .gm-trending-card:first-child {
+        margin-left: 18px !important;
+    }
+    .gm-trending-card:last-child {
+        margin-right: 18px !important;
     }
     .gm-horizontal-list {
         gap: 32px;
