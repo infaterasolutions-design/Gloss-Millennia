@@ -203,8 +203,12 @@
 }
 
 @media (max-width: 768px) {
+    .figma-ig-section {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
     .figma-ig-header {
-        padding: 40px 20px !important;
+        padding: 30px 20px 35px !important;
     }
     .figma-ig-title {
         font-size: 38px !important;

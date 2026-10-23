@@ -1159,7 +1159,8 @@ body.has-floating-hero-video #tcc-floating-to-top {
 
 @media (max-width: 992px) {
     .gm-home-wrapper {
-        padding: 16px 0 60px;
+        padding: 16px 0 0 !important;
+        margin-bottom: 0 !important;
     }
     .gm-hero-section {
         flex-direction: column;
@@ -1207,6 +1208,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-nails-section {
         margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
     }
     .gm-latest-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1665,6 +1667,11 @@ body.has-floating-hero-video #tcc-floating-to-top {
     .gm-card-title {
         font-size: 20px;
     }
+    .gm-home-wrapper {
+        padding: 12px 0 0 !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
     .gm-latest-section,
     .gm-most-clicked-section,
     .gm-shopping-section {
@@ -1672,6 +1679,7 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-nails-section {
         margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
     }
     .gm-accent-line {
         width: 70px;
@@ -1775,6 +1783,14 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-hero-image-wrap {
         height: 180px;
+    }
+    .gm-home-wrapper {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .gm-nails-section {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
     }
 }
 </style>
