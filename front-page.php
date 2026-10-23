@@ -577,7 +577,9 @@ body.has-floating-hero-video #tcc-floating-to-top {
 
 /* 1. Scrollable Newsletter Card */
 .gm-newsletter-card {
-    width: 300px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     background: #FAF8F5;
     border: 1px solid #E5E2DA;
     padding: 30px 22px;
@@ -1137,8 +1139,18 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-latest-sidebar {
         width: 100%;
-        align-items: center;
+        align-items: stretch;
         margin-top: 40px;
+    }
+    .gm-newsletter-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    .gm-ad-sticky-wrap {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
     }
     .gm-ad-sticky-wrap {
         position: static;
@@ -1274,6 +1286,24 @@ body.has-floating-hero-video #tcc-floating-to-top {
     .gm-latest-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 22px 14px;
+    }
+    .gm-latest-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        align-items: stretch !important;
+        margin-top: 32px;
+        box-sizing: border-box !important;
+    }
+    .gm-newsletter-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+    .gm-ad-sticky-wrap {
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
     }
     .gm-latest-card {
         display: flex;
@@ -1685,10 +1715,21 @@ body.has-floating-hero-video #tcc-floating-to-top {
         width: 70px;
         margin-bottom: 24px;
     }
-    .gm-newsletter-card,
+    .gm-latest-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        align-items: stretch !important;
+    }
+    .gm-newsletter-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
     .gm-ad-sticky-wrap {
-        width: 100%;
-        max-width: 300px;
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
     }
     .gm-nail-edit-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1783,6 +1824,23 @@ body.has-floating-hero-video #tcc-floating-to-top {
     }
     .gm-hero-image-wrap {
         height: 180px;
+    }
+    .gm-latest-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        align-items: stretch !important;
+    }
+    .gm-newsletter-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 24px 16px !important;
+    }
+    .gm-ad-sticky-wrap {
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
     }
     .gm-home-wrapper {
         padding-bottom: 0 !important;
